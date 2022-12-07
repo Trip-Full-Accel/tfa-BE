@@ -8,8 +8,8 @@ plugins {
     id 'org.springframework.boot' version '2.7.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'org.asciidoctor.convert' version '1.5.8'
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" // querydsl 추가
-    id "com.epages.restdocs-api-spec" version "0.16.2"
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id "com.epages.restdocs-api-spec"  version "0.16.2"
     id 'java'
 }
 
@@ -40,6 +40,9 @@ dependencies {
     // Swagger
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    // querydsl
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
     compileOnly 'org.projectlombok:lombok'
 
@@ -88,8 +91,8 @@ bootJar {
 
 openapi3 {
     server = 'http://localhost:8080'
-    title = 'PetAndBe API'
-    description = 'PetAndBe API description'
+    title = 'tfa API'
+    description = ' tfa description'
     version = '0.1.0'
     outputFileNamePrefix = 'open-api-3.0.1'
     format = 'json'
