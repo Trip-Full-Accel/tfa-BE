@@ -1,5 +1,8 @@
 package com.encore.tfa.controller.user.api;
 
+import com.encore.tfa.service.File.FireBaseService;
+import com.google.firebase.auth.FirebaseAuthException;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.encore.tfa.controller.user.request.UserLoginRequest;
 import com.encore.tfa.controller.user.request.UserSignUpRequest;
 import com.encore.tfa.controller.user.request.UserUpdateRequest;
@@ -8,21 +11,38 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.encore.tfa.controller.user.response.UserDetailResponse;
 import com.encore.tfa.service.user.UserService;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 
 	private final UserService userService;
+	@Autowired
+	private  FireBaseService fireBaseService;
 
 	public UserController(UserService userService) {
 		this.userService = userService;
+		this.fireBaseService = fireBaseService;
 	}
 
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserDetailResponse> userDetails(@PathVariable("userId") Long userId){
 		return ResponseEntity.ok().body(userService.findUserDetails(userId));
+	}
+
+	@PostMapping("/files")
+	public String uploadFile(@RequestPart MultipartFile file)
+			throws IOException, FirebaseAuthException {
+		if (file.isEmpty()) {
+			return "is empty";
+		}
+		return fireBaseService.uploadFiles(file, file.getName());
 	}
 
 	@PostMapping()
