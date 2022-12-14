@@ -4,20 +4,15 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
 public class UserDetailResponse {
 
-	String userId;
-	String password;
+	Long userId;
 	String nickname;
 	String email;
-	String phone;
 
-	public UserDetailResponse(String userId, String password, String nickname, String email, String phone) {
+	public UserDetailResponse(Long userId, String nickname, String email) {
 		this.userId = userId;
-		this.password = password;
 		this.nickname = nickname;
 		this.email = email;
-		this.phone = phone;
 	}
 }

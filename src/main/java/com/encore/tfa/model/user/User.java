@@ -1,5 +1,6 @@
 package com.encore.tfa.model.user;
 
+import com.encore.tfa.service.user.dto.UserUpdateDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
@@ -46,5 +47,13 @@ public class User {
                 ", email='" + email + '\'' +
                 ", state=" + state +
                 '}';
+    }
+
+    public void updateUser(UserUpdateDTO dto) {
+        setNickname(dto.getNickname());
+        setEmail(dto.getEmail());
+    }
+    public void deleteUser() {
+        this.state = true;
     }
 }
