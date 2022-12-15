@@ -1,6 +1,5 @@
 package com.encore.tfa.service.user;
 
-import com.encore.tfa.controller.user.request.UserDeleteRequest;
 import com.encore.tfa.controller.user.request.UserLoginRequest;
 import com.encore.tfa.controller.user.request.UserSignUpRequest;
 import com.encore.tfa.controller.user.request.UserUpdateRequest;
@@ -33,13 +32,11 @@ public class UserService {
 	}
 
 	public Long signUpUser(UserSignUpRequest userSignUpRequest) {
-		Optional<User> user = userRepository.findById(userSignUpRequest.getUserId());
-
+		Optional<User> user = userRepository.findByUserCode(userSignUpRequest.getUserCode()); // 중복가입을 방지하기 위한 코드 체크
 		if(user.isPresent())
 			throw new NonExistResourceException("User Id already existed");
 
 		User newUser = UserMapper.convertSignUpResquestToEntity(userSignUpRequest);
-
 		User savedUser = userRepository.save(newUser);
 
 		return savedUser.getId();

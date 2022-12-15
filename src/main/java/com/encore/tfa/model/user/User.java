@@ -39,7 +39,7 @@ public class User {
     }
 
     @Override
-    public String toString() {
+    public String toString() {  // 나중에 문제를 미리 방지하기위한 명시적 클린코드 관련
         return "User{" +
                 "id=" + id +
                 ", userCode='" + userCode + '\'' +
