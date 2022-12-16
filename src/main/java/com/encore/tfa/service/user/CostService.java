@@ -1,10 +1,8 @@
 package com.encore.tfa.service.user;
 
 
-import com.encore.tfa.controller.cost.request.CostRequest;
-import com.encore.tfa.controller.cost.response.CostResponse;
 import com.encore.tfa.exception.NonExistResourceException;
-import com.encore.tfa.model.Cost;
+import com.encore.tfa.model.cost.Cost;
 import com.encore.tfa.repository.CostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

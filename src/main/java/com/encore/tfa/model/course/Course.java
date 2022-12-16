@@ -1,4 +1,4 @@
-package com.encore.tfa.model;
+package com.encore.tfa.model.course;
 
 import com.encore.tfa.model.user.User;
 import lombok.AccessLevel;

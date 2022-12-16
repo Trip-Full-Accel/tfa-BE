@@ -1,88 +1,76 @@
 package com.encore.tfa.service.post;
 
-import com.encore.tfa.controller.post.request.PostRequest;
-import com.encore.tfa.controller.post.response.PostResponse;
-import com.encore.tfa.model.post.PostEntity;
+import com.encore.tfa.controller.post.request.RegisterPostRequest;
+import com.encore.tfa.controller.post.request.UpdatePostRequest;
+import com.encore.tfa.controller.post.response.PostDetailResponse;
+import com.encore.tfa.controller.post.response.RegisterPostResponse;
+import com.encore.tfa.controller.post.response.UpdatePostResponse;
+import com.encore.tfa.exception.NonExistResourceException;
+import com.encore.tfa.model.post.Post;
+import com.encore.tfa.model.user.User;
+import com.encore.tfa.repository.UserRepository;
 import com.encore.tfa.repository.post.PostRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
+import com.encore.tfa.util.mapper.PostMapper;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
-    // 전체 게시글 조회
-    public List<PostResponse> getPostList() {
-
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
-        List<PostEntity> list = postRepository.findAll(sort);
-
-        List<PostResponse> postList = new ArrayList<>();
-
-        for (PostEntity entity : list) {
-            postList.add(new PostResponse(entity));
-        }
-
-        return postList;
+    public PostService(PostRepository postRepository, UserRepository userRepository) {
+        this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
-    // 게시글 상세 조회
-    @Transactional
-    public PostResponse getPostDetail(Long id) {
+    @Transactional(readOnly = true)
+    public PostDetailResponse findPostById(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()-> new NonExistResourceException("Post could not be found"));
 
-        Optional<PostEntity> post = postRepository.findById(id);
+        post.increaseHits();
 
-        if (post.isPresent()) {
-            PostEntity entity = post.get();
-            entity.increaseHits(); // 조회 수 증가
-            PostResponse postResponse = new PostResponse(entity);
+        return PostMapper.convertPostToDetailResponse(post);
 
-            return postResponse;
-        }
-        return null;
     }
 
-    // 게시글 생성
     @Transactional
-    public Long savePost(final PostRequest params) {
+    public RegisterPostResponse registerPost(RegisterPostRequest request) {
+        Post post = postRepository.save(
+                createPostInstance(request));
 
-        PostEntity entity = postRepository.save(params.toEntity());
-        return entity.getId();
+        return PostMapper.of().convertPostToRegisterResponse(post);
+    }
+    private Post createPostInstance(RegisterPostRequest request){
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(()-> new NonExistResourceException("User could not be found"));
+
+        return PostMapper.convertReigsterRequestToPost(request, user);
     }
 
-    // 게시글 수정
     @Transactional
-    public Long updatePost(Long id, PostRequest params) {
+    public UpdatePostResponse updatePost(Long postId, UpdatePostRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(()-> new NonExistResourceException("User could not be found"));
 
-        Optional<PostEntity> post = postRepository.findById(id);
-        PostEntity entity = post.get();
-        entity.update(params.getTitle(), params.getContent(), params.getWriter());
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()-> new NonExistResourceException("Post could not be found"));
 
-        return id;
+        post.updatePost(
+                PostMapper.convertUpdateRequestToDTO(request, user));
+
+        return PostMapper.of().convertPostToUpdateResponse(post);
     }
 
-    // 게시글 삭제
     @Transactional
-    public Long deletePost(Long id) {
+    public Long deletePostById(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()-> new NonExistResourceException("Post could not be found"));
 
-        Optional<PostEntity> post = postRepository.findById(id);
+        post.deletePost();
 
-        if (post.isPresent()) {
-            PostEntity entity = post.get();
-            entity.delete();
-
-            return id;
-        }
-        return null;
+        return postId;
     }
 }
