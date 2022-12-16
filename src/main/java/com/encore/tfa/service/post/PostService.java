@@ -32,7 +32,7 @@ public class PostService {
 
         post.increaseHits();
 
-        return PostMapper.convertPostToDetailResponse(post);
+        return PostMapper.of().convertPostToDetailResponse(post);
 
     }
 
@@ -47,7 +47,7 @@ public class PostService {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(()-> new NonExistResourceException("User could not be found"));
 
-        return PostMapper.convertReigsterRequestToPost(request, user);
+        return PostMapper.of().convertReigsterRequestToPost(request, user);
     }
 
     @Transactional
@@ -59,7 +59,7 @@ public class PostService {
                 .orElseThrow(()-> new NonExistResourceException("Post could not be found"));
 
         post.updatePost(
-                PostMapper.convertUpdateRequestToDTO(request, user));
+                PostMapper.of().convertUpdateRequestToDTO(request, user));
 
         return PostMapper.of().convertPostToUpdateResponse(post);
     }

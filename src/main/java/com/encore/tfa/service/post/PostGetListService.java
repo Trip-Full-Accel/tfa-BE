@@ -8,7 +8,6 @@ import com.encore.tfa.model.user.User;
 import com.encore.tfa.repository.UserRepository;
 import com.encore.tfa.repository.post.PostListSearchRepository;
 import com.encore.tfa.util.mapper.PostGetListMapper;
-import com.encore.tfa.util.mapper.PostMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

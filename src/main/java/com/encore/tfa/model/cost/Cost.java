@@ -24,11 +24,11 @@ public class Cost {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "course_id")
     private Course course;
 
     @Column(nullable = true)

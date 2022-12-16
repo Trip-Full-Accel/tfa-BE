@@ -16,7 +16,6 @@ import com.encore.tfa.repository.UserRepository;
 import com.encore.tfa.util.mapper.CostMapper;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 public class CostService {
@@ -35,7 +34,7 @@ public class CostService {
        Cost registeredCost = costRepository.save(
                createCostInstance(request));
 
-       return CostMapper.convertCostToRegisterResponse(registeredCost);
+       return CostMapper.of().convertCostToRegisterResponse(registeredCost);
     }
 
     @Transactional
@@ -43,7 +42,7 @@ public class CostService {
         Cost cost = costRepository.findById(costId)
                 .orElseThrow(()-> new NonExistResourceException("Cost could not be found"));
 
-        return CostMapper.convertCostToDetailResponse(cost);
+        return CostMapper.of().convertCostToDetailResponse(cost);
 
     }
 
@@ -54,7 +53,7 @@ public class CostService {
         Course course = courseRepository.findById(request.getCourseId())
                 .orElseThrow(()-> new NonExistResourceException("Course could not be found"));
 
-        return CostMapper.convertRegisterRequestToCost(request, user, course);
+        return CostMapper.of().convertRegisterRequestToCost(request, user, course);
     }
 
     @Transactional
@@ -62,7 +61,7 @@ public class CostService {
         Cost cost = costRepository.findById(costId)
                 .orElseThrow(()-> new NonExistResourceException("Cost could not be found"));
 
-        cost.updateCost(CostMapper.convertUpdateRequestToDTO(request));
+        cost.updateCost(CostMapper.of().convertUpdateRequestToDTO(request));
 
         return CostMapper.convertCostToUpdateResponse(cost);
     }

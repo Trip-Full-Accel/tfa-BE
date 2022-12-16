@@ -28,7 +28,7 @@ public class UserService {
 	public UserDetailResponse findUserDetails(Long userId){
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new NonExistResourceException("user does not exist"));
-		return UserMapper.entityToUserDetailsResponse(user);
+		return UserMapper.of().entityToUserDetailsResponse(user);
 	}
 
 	public Long signUpUser(UserSignUpRequest userSignUpRequest) {
@@ -36,7 +36,7 @@ public class UserService {
 		if(user.isPresent())
 			throw new NonExistResourceException("User Id already existed");
 
-		User newUser = UserMapper.convertSignUpResquestToEntity(userSignUpRequest);
+		User newUser = UserMapper.of().convertSignUpRequestToEntity(userSignUpRequest);
 		User savedUser = userRepository.save(newUser);
 
 		return savedUser.getId();
@@ -52,7 +52,7 @@ public class UserService {
 	public UserLoginResponse loginUser(UserLoginRequest userLoginRequest) {
 		User user = checkUserIdExistIsCorrect(userLoginRequest.getUserCode());
 
-		return UserMapper.convertEntityToUserLoginResponse(user);
+		return UserMapper.of().convertEntityToUserLoginResponse(user);
 	}
 
 	public Long updateUser(UserUpdateRequest userUpdateRequest, Long userId) {
@@ -60,7 +60,7 @@ public class UserService {
 				.orElseThrow(()-> new NonExistResourceException("User could not be found"));
 
 		user.updateUser(
-				UserMapper.convertUpdateRequestToUpdateDTO(userUpdateRequest));
+				UserMapper.of().convertUpdateRequestToUpdateDTO(userUpdateRequest));
 		return userId;
 	}
 
@@ -68,6 +68,6 @@ public class UserService {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new NonExistResourceException("User could not delete"));
 		user.deleteUser();
-		return UserMapper.entityToUserDeleteResponse(user);
+		return UserMapper.of().entityToUserDeleteResponse(user);
 	}
 }

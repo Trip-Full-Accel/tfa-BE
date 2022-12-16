@@ -20,32 +20,33 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/{userId}") // 유저 회원 정보
+	@GetMapping("/{userId}")
 	public ResponseEntity<UserDetailResponse> userDetails(@PathVariable("userId") Long userId){
 		return ResponseEntity.ok().body(userService.findUserDetails(userId));
 	}
 
-	@PostMapping("/sign-up") // 유저 회원가입
+	@PostMapping("/sign-up")
 	public ResponseEntity<Long> signUpUser(@RequestBody UserSignUpRequest userSignUpRequest) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.signUpUser(userSignUpRequest));
 	}
 
-	@GetMapping("/check-userId-exist/{userId}") // 회원코드 중복체크
+	@GetMapping("/check-userId-exist/{userId}")
 	public ResponseEntity<UserCodeCheckResponse> checkUserCodeExist(@PathVariable("userId") Long userId) {
 		return ResponseEntity.ok().body(userService.checkUserIdExist(userId));
 	}
 
-	@PostMapping("/login") // 로그인
+	@PostMapping("/login")
 	public ResponseEntity<UserLoginResponse> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
 		return ResponseEntity.ok().body(userService.loginUser(userLoginRequest));
 	}
-	@PutMapping("/{userId}") // 유저 회원정보 수정
+
+	@PutMapping("/{userId}")
 	public ResponseEntity<Long> updateUser(@PathVariable("userId") Long userId,
 													 @RequestBody UserUpdateRequest userUpdateRequest) {
 		return ResponseEntity.ok().body(userService.updateUser(userUpdateRequest, userId));
 	}
 
-	@DeleteMapping("/{userId}") // 회원 탈퇴
+	@DeleteMapping("/{userId}")
 	public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable("userId") Long userId) {
 		return ResponseEntity.ok().body(userService.deleteUser(userId));
 	}

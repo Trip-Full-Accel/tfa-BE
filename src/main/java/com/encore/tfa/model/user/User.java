@@ -3,6 +3,7 @@ package com.encore.tfa.model.user;
 import com.encore.tfa.service.user.dto.UserUpdateDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Builder
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Where(clause = "state = false")
 public class User {
 
     @Id
@@ -39,7 +41,7 @@ public class User {
     }
 
     @Override
-    public String toString() {  // 나중에 문제를 미리 방지하기위한 명시적 클린코드 관련
+    public String toString() {
         return "User{" +
                 "id=" + id +
                 ", userCode='" + userCode + '\'' +
@@ -53,7 +55,8 @@ public class User {
         setNickname(dto.getNickname());
         setEmail(dto.getEmail());
     }
+
     public void deleteUser() {
-        this.state = true;
+        setState(true);
     }
 }

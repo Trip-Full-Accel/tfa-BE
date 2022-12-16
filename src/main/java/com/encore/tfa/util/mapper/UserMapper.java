@@ -13,7 +13,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserMapper {
 
-    public static User convertSignUpResquestToEntity(UserSignUpRequest userSignUpRequest) {
+    private static UserMapper userMapper = null;
+
+    public static UserMapper of() {
+        if (userMapper == null){
+            userMapper = new UserMapper();
+        }
+        return userMapper;
+    }
+
+    public User convertSignUpRequestToEntity(UserSignUpRequest userSignUpRequest) {
         return User.builder()
                 .id(userSignUpRequest.getUserId())
                 .userCode(userSignUpRequest.getUserCode())
@@ -22,29 +31,20 @@ public class UserMapper {
                 .nickname(userSignUpRequest.getNickName())
                 .build();
     }
-    public static UserDetailResponse entityToUserDetailsResponse(User user) {
+    public UserDetailResponse entityToUserDetailsResponse(User user) {
         return new UserDetailResponse(user.getId(),user.getNickname(),user.getEmail());
     }
-    public static UserLoginResponse convertEntityToUserLoginResponse(User user) {
+    public UserLoginResponse convertEntityToUserLoginResponse(User user) {
         return new UserLoginResponse(user.getId(),user.getNickname());
     }
 
-    public User signUpRequestToEntity(UserSignUpRequest request) {
-        return User.builder()
-                .id(request.getUserId())
-                .userCode(request.getUserCode())
-                .nickname(request.getNickName())
-                .email(request.getEmail())
-                .state(false)
-                .build();
-    }
-    public static UserUpdateDTO convertUpdateRequestToUpdateDTO(UserUpdateRequest request) {
+    public UserUpdateDTO convertUpdateRequestToUpdateDTO(UserUpdateRequest request) {
         return UserUpdateDTO.builder()
                 .nickname(request.getNickname())
                 .email(request.getEmail())
                 .build();
     }
-    public static UserDeleteResponse entityToUserDeleteResponse(User user) {
+    public UserDeleteResponse entityToUserDeleteResponse(User user) {
         return new UserDeleteResponse(user.getId(), user.getState());
     }
 }

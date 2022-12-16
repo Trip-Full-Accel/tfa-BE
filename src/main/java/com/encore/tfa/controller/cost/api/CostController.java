@@ -6,7 +6,6 @@ import com.encore.tfa.controller.cost.response.CostDetailResponse;
 import com.encore.tfa.controller.cost.response.RegisterCostResponse;
 import com.encore.tfa.controller.cost.response.UpdateCostResponse;
 import com.encore.tfa.service.cost.CostService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

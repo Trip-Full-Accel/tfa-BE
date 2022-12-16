@@ -24,7 +24,7 @@ public class CostMapper {
         return costMapper;
     }
 
-    public static Cost convertRegisterRequestToCost(RegisterCostRequest request, User user, Course course){
+    public Cost convertRegisterRequestToCost(RegisterCostRequest request, User user, Course course){
         return Cost.builder()
                 .user(user)
                 .course(course)
@@ -37,7 +37,7 @@ public class CostMapper {
                 .build();
     }
 
-    public static RegisterCostResponse convertCostToRegisterResponse(Cost cost){
+    public RegisterCostResponse convertCostToRegisterResponse(Cost cost){
         return RegisterCostResponse.builder()
                 .costId(cost.getId())
                 .userId(cost.getUser().getId())
@@ -50,7 +50,7 @@ public class CostMapper {
                 .build();
     }
 
-    public static CostDetailResponse convertCostToDetailResponse(Cost cost){
+    public CostDetailResponse convertCostToDetailResponse(Cost cost){
         return CostDetailResponse.builder()
                 .costId(cost.getId())
                 .courseId(cost.getCourse().getId())
@@ -63,7 +63,7 @@ public class CostMapper {
                 .build();
     }
 
-    public static CostUpdateDTO convertUpdateRequestToDTO(UpdateCostRequest request){
+    public CostUpdateDTO convertUpdateRequestToDTO(UpdateCostRequest request){
         return CostUpdateDTO.builder()
                 .costId(request.getCostId())
                 .transCost(request.getTransCost())

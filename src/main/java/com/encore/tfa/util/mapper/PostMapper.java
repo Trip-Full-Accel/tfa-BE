@@ -23,7 +23,7 @@ public class PostMapper {
         return postMapper;
     }
 
-    public static PostDetailResponse convertPostToDetailResponse(Post post){
+    public PostDetailResponse convertPostToDetailResponse(Post post){
         return PostDetailResponse.builder()
                 .postId(post.getId())
                 .userId(post.getUser().getId())
@@ -35,7 +35,7 @@ public class PostMapper {
                 .build();
     }
 
-    public static Post convertReigsterRequestToPost(RegisterPostRequest request, User user){
+    public Post convertReigsterRequestToPost(RegisterPostRequest request, User user){
         return Post.builder()
                 .user(user)
                 .title((request.getTitle()))
@@ -56,7 +56,7 @@ public class PostMapper {
 
     }
 
-    public static PostUpdateDTO convertUpdateRequestToDTO(UpdatePostRequest request, User user){
+    public PostUpdateDTO convertUpdateRequestToDTO(UpdatePostRequest request, User user){
         return PostUpdateDTO.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
