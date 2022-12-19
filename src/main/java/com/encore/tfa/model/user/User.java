@@ -1,7 +1,9 @@
 package com.encore.tfa.model.user;
 
+import com.encore.tfa.service.user.dto.UserUpdateDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @Builder
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Where(clause = "state = false")
 public class User {
 
     @Id
@@ -46,5 +49,14 @@ public class User {
                 ", email='" + email + '\'' +
                 ", state=" + state +
                 '}';
+    }
+
+    public void updateUser(UserUpdateDTO dto) {
+        setNickname(dto.getNickname());
+        setEmail(dto.getEmail());
+    }
+
+    public void deleteUser() {
+        setState(true);
     }
 }

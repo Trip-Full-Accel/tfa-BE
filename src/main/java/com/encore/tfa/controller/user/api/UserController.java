@@ -1,12 +1,13 @@
 package com.encore.tfa.controller.user.api;
 
+import com.encore.tfa.controller.user.request.UserLoginRequest;
+import com.encore.tfa.controller.user.request.UserSignUpRequest;
+import com.encore.tfa.controller.user.request.UserUpdateRequest;
+import com.encore.tfa.controller.user.response.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.encore.tfa.controller.user.response.UserDetailResponse;
 import com.encore.tfa.service.user.UserService;
 
 @RestController
@@ -19,9 +20,34 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/{user-id}")
-	public ResponseEntity<UserDetailResponse> userDetails(@PathVariable("user-id") String userId){
+	@GetMapping("/{userId}")
+	public ResponseEntity<UserDetailResponse> userDetails(@PathVariable("userId") Long userId){
 		return ResponseEntity.ok().body(userService.findUserDetails(userId));
 	}
 
+	@PostMapping("/sign-up")
+	public ResponseEntity<Long> signUpUser(@RequestBody UserSignUpRequest userSignUpRequest) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(userService.signUpUser(userSignUpRequest));
+	}
+
+	@GetMapping("/check-userId-exist/{userId}")
+	public ResponseEntity<UserCodeCheckResponse> checkUserCodeExist(@PathVariable("userId") Long userId) {
+		return ResponseEntity.ok().body(userService.checkUserIdExist(userId));
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<UserLoginResponse> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
+		return ResponseEntity.ok().body(userService.loginUser(userLoginRequest));
+	}
+
+	@PutMapping("/{userId}")
+	public ResponseEntity<Long> updateUser(@PathVariable("userId") Long userId,
+													 @RequestBody UserUpdateRequest userUpdateRequest) {
+		return ResponseEntity.ok().body(userService.updateUser(userUpdateRequest, userId));
+	}
+
+	@DeleteMapping("/{userId}")
+	public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable("userId") Long userId) {
+		return ResponseEntity.ok().body(userService.deleteUser(userId));
+	}
 }
