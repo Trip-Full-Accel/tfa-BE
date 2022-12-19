@@ -13,13 +13,13 @@ public class RegisterPostResponse {
     private final Long userId;
     private final String title;
     private final String content;
-    private final LocalDateTime createdTime;
+    private final String url;
 
-    public RegisterPostResponse(Long postId, Long userId, String title, String content, LocalDateTime createdTime) {
+    public RegisterPostResponse(Long postId, Long userId, String title, String content, String url) {
         this.postId = postId;
         this.userId = userId;
         this.title = title;
         this.content = content;
-        this.createdTime = createdTime;
+        this.url = url;
     }
 }

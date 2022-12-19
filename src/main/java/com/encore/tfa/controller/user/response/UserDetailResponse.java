@@ -1,7 +1,6 @@
 package com.encore.tfa.controller.user.response;
 
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 public class UserDetailResponse {

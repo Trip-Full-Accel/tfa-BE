@@ -1,5 +1,6 @@
 package com.encore.tfa.model.cost;
 
+import com.encore.tfa.model.BaseEntity;
 import com.encore.tfa.model.course.Course;
 import com.encore.tfa.model.user.User;
 import com.encore.tfa.service.cost.dto.CostUpdateDTO;
@@ -16,7 +17,7 @@ import javax.persistence.*;
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Where(clause = "state = false")
-public class Cost {
+public class Cost extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

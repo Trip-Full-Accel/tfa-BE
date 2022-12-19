@@ -8,7 +8,7 @@ import com.encore.tfa.controller.user.response.UserDeleteResponse;
 import com.encore.tfa.controller.user.response.UserLoginResponse;
 import com.encore.tfa.exception.NonExistResourceException;
 import com.encore.tfa.model.user.User;
-import com.encore.tfa.repository.UserRepository;
+import com.encore.tfa.repository.user.UserRepository;
 import com.encore.tfa.util.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 

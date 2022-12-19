@@ -1,23 +1,27 @@
 package com.encore.tfa.service.course;
 
+import com.encore.tfa.controller.course.request.RegisterCourseRequest;
 import com.encore.tfa.controller.course.response.CourseDetailResponse;
-import com.encore.tfa.controller.course.response.CourseDetailsListResponse;
-import com.encore.tfa.controller.place.response.PlaceDetailsResponse;
+import com.encore.tfa.controller.course.response.MyPageCourseResponse;
+import com.encore.tfa.controller.course.response.RegisterCourseResponse;
 import com.encore.tfa.exception.NonExistResourceException;
 import com.encore.tfa.model.course.Course;
-import com.encore.tfa.model.place.Place;
 import com.encore.tfa.model.user.User;
-import com.encore.tfa.repository.CourseRepository;
+import com.encore.tfa.repository.course.CourseRepository;
+import com.encore.tfa.repository.user.UserRepository;
 import com.encore.tfa.controller.course.request.CreateCourseRequest;
 import com.encore.tfa.controller.course.response.CourseResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import com.encore.tfa.repository.PlaceRepository;
-import com.encore.tfa.repository.UserRepository;
 import com.encore.tfa.util.mapper.CourseMapper;
-import com.encore.tfa.util.mapper.PlaceMapper;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class CourseService {
@@ -25,43 +29,42 @@ public class CourseService {
 
     private final UserRepository userRepository;
 
-    private final PlaceRepository placeRepository;
-
-    public CourseService(CourseRepository courseRepository, UserRepository userRepository, PlaceRepository placeRepository) {
+    public CourseService(CourseRepository courseRepository, UserRepository userRepository) {
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
-        this.placeRepository = placeRepository;
     }
 
-    public CourseDetailsListResponse findCourseDetail(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new NonExistResourceException("User does not exist"));
+    @Transactional(readOnly = true)
+    public MyPageCourseResponse findCourseByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NonExistResourceException("User could not be found"));
 
-        List<Course> courseList = courseRepository.findByUserId(user.getId());
+        List<Course> courseList = courseRepository.findAllByUserId(user.getId());
 
-        if(courseList.isEmpty()) throw new NonExistResourceException("Cores does not exist");
+        if (courseList.isEmpty()) throw new NonExistResourceException("Course does not exist");
 
         List<CourseDetailResponse> courseDetailResponseList = new ArrayList<>();
 
-        for(int i = 0; i < courseList.size(); i++) {
-            List<Place> placeList = placeRepository.findByCourseId(courseList.get(i).getId());
-
-            List<PlaceDetailsResponse> placeDetailsResponseList = new ArrayList<>();
-
-            for(int j = 0; j < placeList.size(); j++){
-                placeDetailsResponseList.add(PlaceMapper.entityToPlaceDetailResponse(placeList.get(j)));
-            }
-
-            courseDetailResponseList.add(CourseMapper.entityToCourseDetailResponse(courseList.get(i).getId(),placeDetailsResponseList));
+        for (Course course : courseList) {
+            courseDetailResponseList.add(CourseMapper.of().convertCourseToDetailResponse(course));
         }
 
-        CourseDetailsListResponse courseDetailsListResponse = new CourseDetailsListResponse(courseDetailResponseList);
-        System.out.println(courseDetailsListResponse.toString());
-        return courseDetailsListResponse;
+        return new MyPageCourseResponse(courseDetailResponseList);
+    }
 
-//        Place place = courseRepository.findById(placeId)
-//                .orElseThrow(() -> new NonExistResourceException("course does not exist"));
-//        System.out.println(place.toString());
-//        return CourseMapper.entityToCourseDetailResponse(place);
+    @Transactional
+    public RegisterCourseResponse registerCourse(RegisterCourseRequest request) {
+        Course course = courseRepository.save(
+                createCourseInstance(request));
+
+        return CourseMapper.of().courseToRegisterResponse(course);
+    }
+
+    private Course createCourseInstance(RegisterCourseRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new NonExistResourceException("User could not be found"));
+
+        return CourseMapper.of().convertRegisterRequestToCourse(request, user);
     }
 
     //두 여행지 간 거리 계산
@@ -123,7 +126,7 @@ public class CourseService {
             if (index != -1) {
                 checked[index] = true;
 
-                resultCourseNames.put(i+1, otherCourseNames[index]);
+                resultCourseNames.put(i + 1, otherCourseNames[index]);
                 resultCourseLats[i] = otherCourseLats[index];
                 resultCourseLngs[i] = otherCourseLngs[index];
 

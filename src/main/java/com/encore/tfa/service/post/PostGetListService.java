@@ -5,7 +5,7 @@ import com.encore.tfa.controller.post.response.PostListGetByUserIdResponse;
 import com.encore.tfa.controller.post.response.PostWithUserResponse;
 import com.encore.tfa.exception.NonExistResourceException;
 import com.encore.tfa.model.user.User;
-import com.encore.tfa.repository.UserRepository;
+import com.encore.tfa.repository.user.UserRepository;
 import com.encore.tfa.repository.post.PostListSearchRepository;
 import com.encore.tfa.util.mapper.PostGetListMapper;
 import org.springframework.data.domain.Page;

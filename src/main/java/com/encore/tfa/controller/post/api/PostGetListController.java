@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/post-list")
+@RequestMapping("/post-lists")
 public class PostGetListController {
 
     private final PostGetListService postGetListService;

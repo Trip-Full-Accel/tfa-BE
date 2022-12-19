@@ -1,23 +1,19 @@
 package com.encore.tfa.controller.course.response;
 
-import com.encore.tfa.controller.place.response.PlaceDetailsResponse;
-
-
+import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
-
-import java.util.List;
 
 @Getter
-@ToString
+@Builder
 public class CourseDetailResponse {
 
-    private Long courseId;
+    private final Long userId;
+    private final Long courseId;
+    private final String courseName;
 
-    private List<PlaceDetailsResponse> placeDetailsResponseList;
-
-    public CourseDetailResponse(Long courseId, List<PlaceDetailsResponse> placeDetailsResponseList) {
+    public CourseDetailResponse(Long userId, Long courseId, String courseName) {
+        this.userId = userId;
         this.courseId = courseId;
-        this.placeDetailsResponseList = placeDetailsResponseList;
+        this.courseName = courseName;
     }
 }
