@@ -10,12 +10,12 @@ public class UpdatePostRequest {
     private final Long userId;
     private final String title;
     private final String content;
-    private final LocalDateTime modifiedDate;
+    private final String url;
 
-    public UpdatePostRequest(Long userId, String title, String content, LocalDateTime modifiedDate) {
+    public UpdatePostRequest(Long userId, String title, String content, String url) {
         this.userId = userId;
         this.title = title;
         this.content = content;
-        this.modifiedDate = modifiedDate;
+        this.url = url;
     }
 }

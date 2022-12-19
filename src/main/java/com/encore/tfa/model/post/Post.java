@@ -1,5 +1,6 @@
 package com.encore.tfa.model.post;
 
+import com.encore.tfa.model.BaseEntity;
 import com.encore.tfa.model.user.User;
 import com.encore.tfa.service.post.dto.PostUpdateDTO;
 import lombok.*;
@@ -16,49 +17,39 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @NoArgsConstructor  (access = AccessLevel.PROTECTED)
 @Where(clause = "state = false")
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
-
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false, columnDefinition = "varchar")
     private String title;
-
-    @Column(length = 200, nullable = false)
+    @Column(length = 200, nullable = false, columnDefinition = "varchar")
     private String content;
-
-    @Column(nullable = false, columnDefinition = "integer default 0")
+    @Column(nullable = false, columnDefinition = "Integer default 0")
     private Integer hits;
-
-    @Column(nullable = false, columnDefinition = "TIMESTAMP")
-    private LocalDateTime createdDate = LocalDateTime.now();
-
-    @Column(nullable = true, columnDefinition = "TIMESTAMP")
-    private LocalDateTime modifiedDate;
-
+    @Column(nullable = true, columnDefinition = "varchar")
+    private String url;
     @Column(nullable = false, columnDefinition = "bit(1) default 0", length = 1)
     private Boolean state;
 
-    public Post(Long id, User user, String title, String content, Integer hits, LocalDateTime createdDate, LocalDateTime modifiedDate, Boolean state) {
+    public Post(Long id, User user, String title, String content, Integer hits, String url, Boolean state) {
         this.id = id;
         this.user = user;
         this.title = title;
         this.content = content;
         this.hits = hits;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
+        this.url = url;
         this.state = state;
     }
 
     public void updatePost(PostUpdateDTO dto){
         setTitle(dto.getTitle());
         setContent(dto.getContent());
-        setModifiedDate(dto.getModifiedDate());
+        setUrl(dto.getUrl());
     }
 
     public void deletePost() {
@@ -73,11 +64,11 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
+                ", user=" + user +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", hits=" + hits +
-                ", createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
+                ", url='" + url + '\'' +
                 ", state=" + state +
                 '}';
     }
