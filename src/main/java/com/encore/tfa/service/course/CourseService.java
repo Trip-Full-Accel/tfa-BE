@@ -83,8 +83,9 @@ public class CourseService {
                 firstCourseLng = otherCourseLngs[index];
             }
         }
-
-        return null;
+        System.out.println(Arrays.toString(resultCourseNames));
+        CourseResponse courseResponse1 = new CourseResponse(resultCourseNames, resultCourseLats, resultCourseLngs);
+        return courseResponse1;
     }
 
 }
