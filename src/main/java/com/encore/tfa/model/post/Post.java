@@ -21,19 +21,26 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
+
     @Column(length = 30, nullable = false)
     private String title;
+
     @Column(length = 200, nullable = false)
     private String content;
-    @Column(nullable = false, columnDefinition = "default 0")
+
+    @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer hits;
+
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdDate = LocalDateTime.now();
+
     @Column(nullable = true, columnDefinition = "TIMESTAMP")
     private LocalDateTime modifiedDate;
+
     @Column(nullable = false, columnDefinition = "bit(1) default 0", length = 1)
     private Boolean state;
 

@@ -1,6 +1,6 @@
 package com.encore.tfa.repository;
 
-import com.encore.tfa.model.Place;
+import com.encore.tfa.model.place.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

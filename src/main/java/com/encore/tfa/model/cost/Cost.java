@@ -5,7 +5,6 @@ import com.encore.tfa.model.user.User;
 import com.encore.tfa.service.cost.dto.CostUpdateDTO;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -46,7 +45,7 @@ public class Cost {
     @Column(nullable = true)
     private Integer totalCost;
 
-    @Column(nullable = false, columnDefinition = "default 1")
+    @Column(nullable = false, columnDefinition = "integer default 1")
     private Integer member;
 
     public Cost(Long id, User user, Course course, Integer transCost, Integer foodCost, Integer hotelCost, Integer extraCost, Integer totalCost, Integer member) {

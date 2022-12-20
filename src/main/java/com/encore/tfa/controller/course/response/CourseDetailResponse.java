@@ -1,6 +1,8 @@
 package com.encore.tfa.controller.course.response;
 
-import com.encore.tfa.controller.place.responses.PlaceDetailsResponse;
+import com.encore.tfa.controller.place.response.PlaceDetailsResponse;
+
+
 import lombok.Getter;
 import lombok.ToString;
 

@@ -1,7 +1,8 @@
 package com.encore.tfa.util.mapper;
 
 import com.encore.tfa.controller.course.response.CourseDetailResponse;
-import com.encore.tfa.controller.place.responses.PlaceDetailsResponse;
+import com.encore.tfa.controller.place.response.PlaceDetailsResponse;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
