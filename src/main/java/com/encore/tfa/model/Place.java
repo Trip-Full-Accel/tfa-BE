@@ -15,24 +15,22 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;
     @ManyToOne(fetch =  FetchType.LAZY)
-    @Column
     private Course course;
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column
     private User user;
     @Column(nullable = false, length = 25)
     private String placeName;
     @Column(nullable = false ,length = 50)
     private Integer cityCode;
-    @Column(nullable = false ,length = 30)
-    private String lat;
-    @Column(nullable = false ,length = 30)
-    private String lng;
+    @Column(nullable = false)
+    private Float lat;
+    @Column(nullable = false)
+    private Float lng;
     @Column(nullable = false ,length = 50)
     private Integer pathOrder;
 
 
-    public Place(Long id, Course course, User user, String placeName, Integer cityCode, String lat, String lng, Integer pathOrder) {
+    public Place(Long id, Course course, User user, String placeName, Integer cityCode, Float lat, Float lng, Integer pathOrder) {
         this.id = id;
         this.course = course;
         this.user = user;
