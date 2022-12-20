@@ -1,20 +1,69 @@
 package com.encore.tfa.service.course;
 
-import com.encore.tfa.controller.course.request.MakeCourseRequest;
+import com.encore.tfa.controller.course.request.CreateCourseRequest;
 import com.encore.tfa.controller.course.response.CourseResponse;
+import com.encore.tfa.controller.place.response.PlaceDetailsResponse;
 import com.encore.tfa.repository.CourseRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.encore.tfa.controller.course.response.CourseDetailResponse;
+import com.encore.tfa.controller.course.response.CourseDetailsListResponse;
+import com.encore.tfa.exception.NonExistResourceException;
+import com.encore.tfa.model.course.Course;
+import com.encore.tfa.model.place.Place;
+import com.encore.tfa.model.user.User;
+import com.encore.tfa.repository.PlaceRepository;
+import com.encore.tfa.repository.UserRepository;
+import com.encore.tfa.util.mapper.CourseMapper;
+import com.encore.tfa.util.mapper.PlaceMapper;
 
 @Service
-@RequiredArgsConstructor
 public class CourseService {
-
     private final CourseRepository courseRepository;
+
+    private final UserRepository userRepository;
+
+    private final PlaceRepository placeRepository;
+
+    public CourseService(CourseRepository courseRepository, UserRepository userRepository, PlaceRepository placeRepository) {
+        this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
+        this.placeRepository = placeRepository;
+    }
+
+    public CourseDetailsListResponse findCourseDetail(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NonExistResourceException("User does not exist"));
+
+        List<Course> courseList = courseRepository.findByUserId(user.getId());
+
+        if(courseList.isEmpty()) throw new NonExistResourceException("Cores does not exist");
+
+        List<CourseDetailResponse> courseDetailResponseList = new ArrayList<>();
+
+        for(int i = 0; i < courseList.size(); i++) {
+            List<Place> placeList = placeRepository.findByCourseId(courseList.get(i).getId());
+
+            List<PlaceDetailsResponse> placeDetailsResponseList = new ArrayList<>();
+
+            for(int j = 0; j < placeList.size(); j++){
+                placeDetailsResponseList.add(PlaceMapper.entityToPlaceDetailResponse(placeList.get(j)));
+            }
+
+            courseDetailResponseList.add(CourseMapper.entityToCourseDetailResponse(courseList.get(i).getId(),placeDetailsResponseList));
+        }
+
+        CourseDetailsListResponse courseDetailsListResponse = new CourseDetailsListResponse(courseDetailResponseList);
+        System.out.println(courseDetailsListResponse.toString());
+        return courseDetailsListResponse;
+
+//        Place place = courseRepository.findById(placeId)
+//                .orElseThrow(() -> new NonExistResourceException("course does not exist"));
+//        System.out.println(place.toString());
+//        return CourseMapper.entityToCourseDetailResponse(place);
+    }
 
     //두 여행지 간 거리 계산
     private double distance(double lat1, double lng1, double lat2, double lng2, String unit) {
@@ -40,7 +89,7 @@ public class CourseService {
     }
 
     // 사용자가 선택한 여행지를 받아서 경로를 만들어줌
-    public CourseResponse getCourse(MakeCourseRequest params) {
+    public CourseResponse getCourse(CreateCourseRequest params) {
 
         final CourseResponse courseResponse;
 
@@ -87,5 +136,4 @@ public class CourseService {
         CourseResponse courseResponse1 = new CourseResponse(resultCourseNames, resultCourseLats, resultCourseLngs);
         return courseResponse1;
     }
-
 }

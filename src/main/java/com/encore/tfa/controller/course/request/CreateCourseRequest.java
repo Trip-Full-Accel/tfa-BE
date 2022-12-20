@@ -4,11 +4,9 @@ package com.encore.tfa.controller.course.request;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
 @Builder
-public class MakeCourseRequest {
+public class CreateCourseRequest {
 
     private String firstCourseName; // 첫 번째 지역 이름
 
@@ -22,8 +20,8 @@ public class MakeCourseRequest {
 
     private Double[] otherCourseLngs; // 나머지 지역 경도
 
-    public MakeCourseRequest makeCourseRequest() {
-        return MakeCourseRequest.builder().
+    public CreateCourseRequest makeCourseRequest() {
+        return CreateCourseRequest.builder().
                 firstCourseName(firstCourseName).
                 firstCourseLat(firstCourseLat).
                 firstCourseLng(firstCourseLng).
