@@ -12,9 +12,7 @@ import com.encore.tfa.controller.course.request.CreateCourseRequest;
 import com.encore.tfa.controller.course.response.CourseResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import com.encore.tfa.repository.PlaceRepository;
 import com.encore.tfa.repository.UserRepository;
@@ -92,8 +90,6 @@ public class CourseService {
     // 사용자가 선택한 여행지를 받아서 경로를 만들어줌
     public CourseResponse getCourse(CreateCourseRequest params) {
 
-        final CourseResponse courseResponse;
-
         String firstCourseName = params.getFirstCourseName();
         Double firstCourseLat = params.getFirstCourseLat();
         Double firstCourseLng = params.getFirstCourseLng();
@@ -102,16 +98,17 @@ public class CourseService {
         Double[] otherCourseLats = params.getOtherCourseLats();
         Double[] otherCourseLngs = params.getOtherCourseLngs();
 
-        String[] resultCourseNames = new String[otherCourseNames.length + 1];
+        Map<Integer, String> resultCourseNames = new HashMap<>();
+
         Double[] resultCourseLats = new Double[otherCourseNames.length + 1];
         Double[] resultCourseLngs = new Double[otherCourseNames.length + 1];
 
         boolean[] checked = new boolean[otherCourseNames.length];
-        resultCourseNames[0] = firstCourseName;
+        resultCourseNames.put(1, firstCourseName);
         resultCourseLats[0] = firstCourseLat;
         resultCourseLngs[0] = firstCourseLng;
 
-        for (int i = 1; i < resultCourseNames.length; i++) {
+        for (int i = 1; i < resultCourseLats.length; i++) {
             Double min = Double.MAX_VALUE;
             int index = -1;
             for (int j = 0; j < checked.length; j++) {
@@ -125,7 +122,8 @@ public class CourseService {
             }
             if (index != -1) {
                 checked[index] = true;
-                resultCourseNames[i] = otherCourseNames[index];
+
+                resultCourseNames.put(i+1, otherCourseNames[index]);
                 resultCourseLats[i] = otherCourseLats[index];
                 resultCourseLngs[i] = otherCourseLngs[index];
 
@@ -133,9 +131,9 @@ public class CourseService {
                 firstCourseLng = otherCourseLngs[index];
             }
         }
-        System.out.println(Arrays.toString(resultCourseNames));
-        CourseResponse courseResponse1 = new CourseResponse(resultCourseNames, resultCourseLats, resultCourseLngs);
-        return courseResponse1;
+        CourseResponse courseResponse = new CourseResponse(resultCourseNames, resultCourseLats, resultCourseLngs);
+
+        return courseResponse;
     }
 
 }
