@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active:
+      - common
+server:
+  port: 8081
