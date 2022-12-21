@@ -13,13 +13,13 @@ public class UpdatePostResponse {
     private final String title;
     private final String content;
     private final Integer hits;
-    private final LocalDateTime modifiedDate;
+    private final String url;
 
-    public UpdatePostResponse(Long postId, String title, String content, Integer hits, LocalDateTime modifiedDate) {
+    public UpdatePostResponse(Long postId, String title, String content, Integer hits, String url) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.hits = hits;
-        this.modifiedDate = modifiedDate;
+        this.url = url;
     }
 }

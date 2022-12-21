@@ -2,17 +2,22 @@ package com.encore.tfa.service.post;
 
 import com.encore.tfa.controller.post.request.RegisterPostRequest;
 import com.encore.tfa.controller.post.request.UpdatePostRequest;
+import com.encore.tfa.controller.post.response.MyPagePostResponse;
 import com.encore.tfa.controller.post.response.PostDetailResponse;
 import com.encore.tfa.controller.post.response.RegisterPostResponse;
 import com.encore.tfa.controller.post.response.UpdatePostResponse;
 import com.encore.tfa.exception.NonExistResourceException;
+import com.encore.tfa.exception.WrongRequestException;
 import com.encore.tfa.model.post.Post;
 import com.encore.tfa.model.user.User;
-import com.encore.tfa.repository.UserRepository;
+import com.encore.tfa.repository.user.UserRepository;
 import com.encore.tfa.repository.post.PostRepository;
 import com.encore.tfa.util.mapper.PostMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostService {
@@ -32,7 +37,7 @@ public class PostService {
 
         post.increaseHits();
 
-        return PostMapper.of().convertPostToDetailResponse(post);
+        return PostMapper.convertPostToDetailResponse(post);
 
     }
 
@@ -41,13 +46,7 @@ public class PostService {
         Post post = postRepository.save(
                 createPostInstance(request));
 
-        return PostMapper.of().convertPostToRegisterResponse(post);
-    }
-    private Post createPostInstance(RegisterPostRequest request){
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(()-> new NonExistResourceException("User could not be found"));
-
-        return PostMapper.of().convertReigsterRequestToPost(request, user);
+        return PostMapper.convertPostToRegisterResponse(post);
     }
 
     @Transactional
@@ -58,10 +57,12 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new NonExistResourceException("Post could not be found"));
 
-        post.updatePost(
-                PostMapper.of().convertUpdateRequestToDTO(request, user));
+        checkUserIsMatch(user, post.getUser());
 
-        return PostMapper.of().convertPostToUpdateResponse(post);
+        post.updatePost(
+                PostMapper.convertUpdateRequestToDTO(request));
+
+        return PostMapper.convertPostToUpdateResponse(post);
     }
 
     @Transactional
@@ -72,5 +73,37 @@ public class PostService {
         post.deletePost();
 
         return postId;
+    }
+
+    @Transactional(readOnly = true)
+    public MyPagePostResponse findPostByUserId(Long userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new NonExistResourceException("User could not be found"));
+
+        List<Post> postList = postRepository.findAllByUserId(user.getId());
+
+        if(postList.isEmpty()) throw new NonExistResourceException("Post does note exist");
+
+        List<PostDetailResponse> postDetailResponseList = new ArrayList<>();
+
+        for (Post post : postList){
+            postDetailResponseList.add(PostMapper.convertPostToDetailResponse(post));
+
+        }
+
+        return new MyPagePostResponse(postDetailResponseList);
+    }
+
+    private Post createPostInstance(RegisterPostRequest request){
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(()-> new NonExistResourceException("User could not be found"));
+
+        return PostMapper.convertReigsterRequestToPost(request, user);
+    }
+
+    private void checkUserIsMatch(User expect, User result) {
+        if (!expect.equals(result)) {
+            throw new WrongRequestException("user inconsistency");
+        }
     }
 }

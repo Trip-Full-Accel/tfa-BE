@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 public class PostUpdateDTO {
     private String title;
     private String content;
-    private LocalDateTime modifiedDate;
+    private String url;
 
-    public PostUpdateDTO(String title, String content, LocalDateTime modifiedDate) {
+    public PostUpdateDTO(String title, String content, String url) {
         this.title = title;
         this.content = content;
-        this.modifiedDate = modifiedDate;
+        this.url = url;
     }
 }

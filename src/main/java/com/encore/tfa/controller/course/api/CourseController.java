@@ -1,24 +1,31 @@
 package com.encore.tfa.controller.course.api;
 
-import com.encore.tfa.controller.course.response.CourseDetailsListResponse;
-import com.encore.tfa.controller.course.request.CreateCourseRequest;
-import com.encore.tfa.controller.course.response.CourseDetailsListResponse;
+import com.encore.tfa.controller.course.request.RegisterCourseRequest;
+import com.encore.tfa.controller.course.response.MyPageCourseResponse;
+import com.encore.tfa.controller.course.response.RegisterCourseResponse;
 import com.encore.tfa.controller.course.response.CourseResponse;
-
+import com.encore.tfa.controller.course.request.CreateCourseRequest;
 import com.encore.tfa.service.course.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
+@RequestMapping("/courses")
 @CrossOrigin(origins = "*")
-@RequestMapping("/course")
 public class CourseController {
     private final CourseService courseService;
 
     public CourseController(CourseService courseService) { this.courseService = courseService; }
-    @GetMapping("/{userId}")
-    public ResponseEntity<CourseDetailsListResponse> courseDetail(@PathVariable("userId") Long userId){
-        return ResponseEntity.ok().body(courseService.findCourseDetail(userId));
+
+    @PostMapping
+    public ResponseEntity<RegisterCourseResponse> registerCourse(@RequestBody RegisterCourseRequest request){
+        return ResponseEntity.ok().body(courseService.registerCourse(request));
+    }
+
+    @GetMapping("/{user-id}")
+    public ResponseEntity<MyPageCourseResponse> myPageCourse(@PathVariable("user-id") Long userId){
+        return ResponseEntity.ok().body(courseService.findCourseByUserId(userId));
     }
 
     // 사용자가 경로 만들기를 눌렀을 때

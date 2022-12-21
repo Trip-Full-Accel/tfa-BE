@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.encore.tfa.service.user.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
 	private final UserService userService;
@@ -25,17 +25,17 @@ public class UserController {
 		return ResponseEntity.ok().body(userService.findUserDetails(userId));
 	}
 
-	@PostMapping("/sign-up")
+	@PostMapping()
 	public ResponseEntity<Long> signUpUser(@RequestBody UserSignUpRequest userSignUpRequest) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.signUpUser(userSignUpRequest));
 	}
 
-	@GetMapping("/check-userId-exist/{userId}")
+	@GetMapping("/check/{userId}")
 	public ResponseEntity<UserCodeCheckResponse> checkUserCodeExist(@PathVariable("userId") Long userId) {
 		return ResponseEntity.ok().body(userService.checkUserIdExist(userId));
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/auth")
 	public ResponseEntity<UserLoginResponse> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
 		return ResponseEntity.ok().body(userService.loginUser(userLoginRequest));
 	}

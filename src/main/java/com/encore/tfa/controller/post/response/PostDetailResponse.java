@@ -13,16 +13,14 @@ public class PostDetailResponse {
     private String title;
     private String content;
     private Integer hits;
-    private LocalDateTime createdTime;
-    private LocalDateTime modifiedTime;
+    private String url;
 
-    public PostDetailResponse(Long userId, Long postId, String title, String content, Integer hits, LocalDateTime createdTime, LocalDateTime modifiedTime) {
+    public PostDetailResponse(Long userId, Long postId, String title, String content, Integer hits, String url) {
         this.userId = userId;
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.hits = hits;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
+        this.url = url;
     }
 }
