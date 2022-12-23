@@ -16,17 +16,17 @@ public class Recommendation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar")
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Integer")
     private Integer cityCode;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Integer")
     private Integer lat;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Integer")
     private Integer lng;
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "Integer")
     private Integer travelCost;
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "varchar")
     private String url;
 
     public Recommendation(Long id, String name, Integer cityCode, Integer lat, Integer lng, Integer travelCost, String url) {

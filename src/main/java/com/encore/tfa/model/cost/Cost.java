@@ -31,19 +31,19 @@ public class Cost extends BaseEntity {
     @JoinColumn(nullable = false, name = "course_id")
     private Course course;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "Integer")
     private Integer transCost;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "Integer")
     private Integer foodCost;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "Integer")
     private Integer hotelCost;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "Integer")
     private Integer extraCost;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "Integer")
     private Integer totalCost;
 
     @Column(nullable = false, columnDefinition = "integer default 1")

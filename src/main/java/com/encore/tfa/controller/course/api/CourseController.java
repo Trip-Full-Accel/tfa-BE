@@ -28,8 +28,7 @@ public class CourseController {
         return ResponseEntity.ok().body(courseService.findCourseByUserId(userId));
     }
 
-    // 사용자가 경로 만들기를 눌렀을 때
-    @PostMapping()
+    @PostMapping("/create")
     public ResponseEntity<CourseResponse> createCourse(@RequestBody CreateCourseRequest params) {
         return ResponseEntity.ok().body(courseService.getCourse(params));
     }

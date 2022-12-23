@@ -34,15 +34,15 @@ public class Course extends BaseEntity {
     @Column(nullable = false, columnDefinition = "bit(1) default 0", length = 1)
     private Boolean state;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE)
-    private List<Place> children = new ArrayList<>();
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
+    private List<Place> places = new ArrayList<>();
 
-    public Course(Long id, User user, String courseName, Boolean state, List<Place> children) {
+    public Course(Long id, User user, String courseName, Boolean state, List<Place> places) {
         this.id = id;
         this.user = user;
         this.courseName = courseName;
         this.state = state;
-        this.children = children;
+        this.places = places;
     }
 
     @Override
@@ -52,6 +52,7 @@ public class Course extends BaseEntity {
                 ", user=" + user +
                 ", courseName='" + courseName + '\'' +
                 ", state=" + state +
+                ", places=" + places +
                 '}';
     }
 }

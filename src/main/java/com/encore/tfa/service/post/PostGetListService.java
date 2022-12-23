@@ -28,9 +28,7 @@ public class PostGetListService {
         User user = userRepository.findById(postListGetByUserIdRequest.getUserId())
                 .orElseThrow(()->new NonExistResourceException("User could not be fouhnd"));
 
-//        Page<PostWithUserResponse> postPage = postListSearchRepository.getPostListPage(user.getId(),
-//                convertPageRequest(postListGetByUserIdRequest));
-        Page<PostWithUserResponse> postPage = postListSearchRepository.getPostByUserId(user.getId(),
+        Page<PostWithUserResponse> postPage = postListSearchRepository.getPostListPage(user.getId(),
                 convertPageRequest(postListGetByUserIdRequest));
 
         return PostGetListMapper.of().postListToResponse(postPage);
