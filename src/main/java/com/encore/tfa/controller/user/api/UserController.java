@@ -19,31 +19,17 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin("http://localhost:3000")
 public class UserController {
 
 	private final UserService userService;
-	@Autowired
-	private  FireBaseService fireBaseService;
 
-
-	public UserController(UserService userService, FireBaseService fireBaseService) {
+	public UserController(UserService userService) {
 		this.userService = userService;
-		this.fireBaseService = fireBaseService;
 	}
 
-	@GetMapping("/{userId}")
-	public ResponseEntity<UserDetailResponse> userDetails(@PathVariable("userId") Long userId){
+	@GetMapping("/{user-id}")
+	public ResponseEntity<UserDetailResponse> userDetails(@PathVariable("user-id") Long userId){
 		return ResponseEntity.ok().body(userService.findUserDetails(userId));
-	}
-
-	@PostMapping("/files")
-	public String uploadFile(@RequestPart MultipartFile file)
-			throws IOException, FirebaseAuthException {
-		if (file.isEmpty()) {
-			return "is empty";
-		}
-		return fireBaseService.uploadFiles(file, file.getName());
 	}
 
 	@PostMapping()
