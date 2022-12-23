@@ -26,7 +26,8 @@ public class UserController {
 	@Autowired
 	private  FireBaseService fireBaseService;
 
-	public UserController(UserService userService) {
+
+	public UserController(UserService userService, FireBaseService fireBaseService) {
 		this.userService = userService;
 		this.fireBaseService = fireBaseService;
 	}
