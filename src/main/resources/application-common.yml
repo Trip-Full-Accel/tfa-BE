@@ -5,6 +5,7 @@ spring:
     basename: i18n/messages, errors
     encoding: UTF-8
     cache-duration: PT1H
+
   jpa:
     hibernate:
       naming:
@@ -27,3 +28,7 @@ spring:
       minimum-idle: 1
       maximum-pool-size: 5
       pool-name: H2_DB
+
+app:
+  firebase-configuration-file: ./serviceAccountKey.json
+  firebase-bucket: tripfullaccel.appspot.com
