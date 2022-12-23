@@ -11,10 +11,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "course")
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@Builder
 @DynamicInsert
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Where(clause = "state = false")
@@ -36,13 +35,12 @@ public class Course extends BaseEntity {
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
     private List<Place> places = new ArrayList<>();
-
-    public Course(Long id, User user, String courseName, Boolean state, List<Place> places) {
+    @Builder
+    public Course(Long id, User user, String courseName, Boolean state) {
         this.id = id;
         this.user = user;
         this.courseName = courseName;
         this.state = state;
-        this.places = places;
     }
 
     @Override

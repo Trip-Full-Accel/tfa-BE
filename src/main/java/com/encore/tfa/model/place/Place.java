@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "place")
 @Builder
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -29,16 +29,16 @@ public class Place extends BaseEntity {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    @Column(nullable = false, columnDefinition = "varchar(50)")
+    @Column(nullable = false, length = 50)
     private String placeName;
 
-    @Column(nullable = false, columnDefinition = "Double")
+    @Column(nullable = false)
     private Double lat;
 
-    @Column(nullable = false, columnDefinition = "Double")
+    @Column(nullable = false)
     private Double lng;
 
-    @Column(nullable = false, columnDefinition = "Integer")
+    @Column(nullable = false)
     private Integer pathOrder;
 
     public Place(Long id, Course course, User user, String placeName, Double lat, Double lng, Integer pathOrder) {

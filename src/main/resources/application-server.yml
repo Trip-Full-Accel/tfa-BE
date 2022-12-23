@@ -6,18 +6,19 @@ spring:
     password: 1234
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
     show-sql: true
+    generate-ddl: true
+    open-in-view: false
     hibernate:
-      ddl-auto: none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
-        default_batch_fetch_size: 100
-        show_sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
 
 app:
   firebase-configuration-file: ./serviceAccountKey.json

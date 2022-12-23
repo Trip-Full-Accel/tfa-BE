@@ -10,7 +10,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "cost")
 @Builder
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -31,22 +31,22 @@ public class Cost extends BaseEntity {
     @JoinColumn(nullable = false, name = "course_id")
     private Course course;
 
-    @Column(nullable = true, columnDefinition = "Integer")
+    @Column(nullable = true, columnDefinition = "int")
     private Integer transCost;
 
-    @Column(nullable = true, columnDefinition = "Integer")
+    @Column(nullable = true, columnDefinition = "int")
     private Integer foodCost;
 
-    @Column(nullable = true, columnDefinition = "Integer")
+    @Column(nullable = true, columnDefinition = "int")
     private Integer hotelCost;
 
-    @Column(nullable = true, columnDefinition = "Integer")
+    @Column(nullable = true, columnDefinition = "int")
     private Integer extraCost;
 
-    @Column(nullable = true, columnDefinition = "Integer")
+    @Column(nullable = true, columnDefinition = "int")
     private Integer totalCost;
 
-    @Column(nullable = false, columnDefinition = "integer default 1")
+    @Column(nullable = false, columnDefinition = "int default 1")
     private Integer member;
 
     public Cost(Long id, User user, Course course, Integer transCost, Integer foodCost, Integer hotelCost, Integer extraCost, Integer totalCost, Integer member) {

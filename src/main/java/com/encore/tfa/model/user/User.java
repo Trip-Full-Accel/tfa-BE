@@ -7,7 +7,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "user")
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder

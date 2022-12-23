@@ -10,7 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "post")
 @Builder
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -20,20 +20,20 @@ import java.time.LocalDateTime;
 public class Post extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
-    @Column(length = 30, nullable = false, columnDefinition = "varchar")
+    @Column(length = 30, nullable = false)
     private String title;
-    @Column(length = 200, nullable = false, columnDefinition = "varchar")
+    @Column(length = 200, nullable = false)
     private String content;
-    @Column(nullable = false, columnDefinition = "Integer default 0")
+    @Column(nullable = false, columnDefinition = "int default 0")
     private Integer hits;
-    @Column(nullable = true, columnDefinition = "varchar")
+    @Column(nullable = true)
     private String url;
-    @Column(nullable = false, columnDefinition = "bit(1) default 0", length = 1)
+    @Column(columnDefinition = "bit(1) default 0", length = 1)
     private Boolean state;
 
     public Post(Long id, User user, String title, String content, Integer hits, String url, Boolean state) {

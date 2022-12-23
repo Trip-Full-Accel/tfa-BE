@@ -5,7 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "recommendation")
 @Builder
 @DynamicInsert
 @Getter
@@ -16,17 +16,17 @@ public class Recommendation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, columnDefinition = "varchar")
+    @Column(nullable = false)
     private String name;
-    @Column(nullable = false, columnDefinition = "Integer")
+    @Column(nullable = false)
     private Integer cityCode;
-    @Column(nullable = false, columnDefinition = "Integer")
+    @Column(nullable = false)
     private Integer lat;
-    @Column(nullable = false, columnDefinition = "Integer")
+    @Column(nullable = false)
     private Integer lng;
-    @Column(nullable = true, columnDefinition = "Integer")
+    @Column
     private Integer travelCost;
-    @Column(nullable = true, columnDefinition = "varchar")
+    @Column
     private String url;
 
     public Recommendation(Long id, String name, Integer cityCode, Integer lat, Integer lng, Integer travelCost, String url) {
