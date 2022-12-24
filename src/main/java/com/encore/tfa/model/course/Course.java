@@ -1,6 +1,7 @@
 package com.encore.tfa.model.course;
 
 import com.encore.tfa.model.BaseEntity;
+import com.encore.tfa.model.cost.Cost;
 import com.encore.tfa.model.place.Place;
 import com.encore.tfa.model.user.User;
 import lombok.*;
@@ -35,6 +36,10 @@ public class Course extends BaseEntity {
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
     private List<Place> places = new ArrayList<>();
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
+    private List<Cost> costs = new ArrayList<>();
+
     @Builder
     public Course(Long id, User user, String courseName, Boolean state) {
         this.id = id;
