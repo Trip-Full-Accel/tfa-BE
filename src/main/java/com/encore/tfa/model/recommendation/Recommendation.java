@@ -25,11 +25,11 @@ public class Recommendation {
     @Column(nullable = false)
     private Integer lng;
     @Column
-    private Integer travelCost;
+    private String travelCost;
     @Column
     private String url;
 
-    public Recommendation(Long id, String name, Integer cityCode, Integer lat, Integer lng, Integer travelCost, String url) {
+    public Recommendation(Long id, String name, Integer cityCode, Integer lat, Integer lng, String travelCost, String url) {
         this.id = id;
         this.name = name;
         this.cityCode = cityCode;
@@ -47,7 +47,7 @@ public class Recommendation {
                 ", cityCode=" + cityCode +
                 ", lat=" + lat +
                 ", lng=" + lng +
-                ", travelCost=" + travelCost +
+                ", travelCost='" + travelCost + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }
