@@ -40,6 +40,8 @@ dependencies {
     // Swagger
 //    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
 //    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile 'io.springfox:springfox-swagger2:2.9.2'
+    compile 'io.springfox:springfox-swagger-ui:2.9.2'
     // querydsl
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"

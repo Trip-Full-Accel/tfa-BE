@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.encore.tfa.controller.user.response.UserDetailResponse;
 import com.encore.tfa.service.user.UserService;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {

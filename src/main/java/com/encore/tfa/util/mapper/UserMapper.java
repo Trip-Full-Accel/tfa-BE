@@ -24,11 +24,10 @@ public class UserMapper {
 
     public User convertSignUpRequestToEntity(UserSignUpRequest userSignUpRequest) {
         return User.builder()
-                .id(userSignUpRequest.getUserId())
                 .userCode(userSignUpRequest.getUserCode())
                 .state(false)
                 .email(userSignUpRequest.getEmail())
-                .nickname(userSignUpRequest.getNickName())
+                .nickname(userSignUpRequest.getNickname())
                 .build();
     }
     public UserDetailResponse entityToUserDetailsResponse(User user) {

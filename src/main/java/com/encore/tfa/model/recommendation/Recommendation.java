@@ -21,15 +21,16 @@ public class Recommendation {
     @Column(nullable = false)
     private Integer cityCode;
     @Column(nullable = false)
-    private Integer lat;
+    private Double lat;
     @Column(nullable = false)
-    private Integer lng;
+    private Double lng;
     @Column
     private String travelCost;
     @Column
     private String url;
 
-    public Recommendation(Long id, String name, Integer cityCode, Integer lat, Integer lng, String travelCost, String url) {
+    public Recommendation(Long id, String name, Integer cityCode, Double lat, Double lng, String travelCost,
+        String url) {
         this.id = id;
         this.name = name;
         this.cityCode = cityCode;
