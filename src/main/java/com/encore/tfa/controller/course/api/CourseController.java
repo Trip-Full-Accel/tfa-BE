@@ -1,9 +1,9 @@
 package com.encore.tfa.controller.course.api;
 
 import com.encore.tfa.controller.course.request.RegisterCourseRequest;
+import com.encore.tfa.controller.course.response.CourseResponseList;
 import com.encore.tfa.controller.course.response.MyPageCourseResponse;
 import com.encore.tfa.controller.course.response.RegisterCourseResponse;
-import com.encore.tfa.controller.course.response.CourseResponse;
 import com.encore.tfa.controller.course.request.CreateCourseRequest;
 import com.encore.tfa.service.course.CourseService;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class CourseController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CourseResponse> createCourse(@RequestBody CreateCourseRequest params) {
+    public ResponseEntity<CourseResponseList> createCourse(@RequestBody CreateCourseRequest params) {
         return ResponseEntity.ok().body(courseService.getCourse(params));
     }
 

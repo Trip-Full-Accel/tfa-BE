@@ -1,16 +1,13 @@
 package com.encore.tfa.service.course;
 
 import com.encore.tfa.controller.course.request.RegisterCourseRequest;
-import com.encore.tfa.controller.course.response.CourseDetailResponse;
-import com.encore.tfa.controller.course.response.MyPageCourseResponse;
-import com.encore.tfa.controller.course.response.RegisterCourseResponse;
+import com.encore.tfa.controller.course.response.*;
 import com.encore.tfa.exception.NonExistResourceException;
 import com.encore.tfa.model.course.Course;
 import com.encore.tfa.model.user.User;
 import com.encore.tfa.repository.course.CourseRepository;
 import com.encore.tfa.repository.user.UserRepository;
 import com.encore.tfa.controller.course.request.CreateCourseRequest;
-import com.encore.tfa.controller.course.response.CourseResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -91,7 +88,7 @@ public class CourseService {
     }
 
     // 사용자가 선택한 여행지를 받아서 경로를 만들어줌
-    public CourseResponse getCourse(CreateCourseRequest params) {
+    public CourseResponseList getCourse(CreateCourseRequest params) {
 
         String firstCourseName = params.getFirstCourseName();
         Double firstCourseLat = params.getFirstCourseLat();
@@ -101,13 +98,16 @@ public class CourseService {
         Double[] otherCourseLats = params.getOtherCourseLats();
         Double[] otherCourseLngs = params.getOtherCourseLngs();
 
-        Map<Integer, String> resultCourseNames = new HashMap<>();
+        List<CourseResponse> resultCourses = new ArrayList<>();
+        CourseResponse resultCourse = new CourseResponse(1, firstCourseName, firstCourseLat, firstCourseLng);
+        resultCourses.add(resultCourse);
+//        Map<Integer, String> resultCourseNames = new HashMap<>();
 
         Double[] resultCourseLats = new Double[otherCourseNames.length + 1];
         Double[] resultCourseLngs = new Double[otherCourseNames.length + 1];
 
         boolean[] checked = new boolean[otherCourseNames.length];
-        resultCourseNames.put(1, firstCourseName);
+
         resultCourseLats[0] = firstCourseLat;
         resultCourseLngs[0] = firstCourseLng;
 
@@ -126,7 +126,9 @@ public class CourseService {
             if (index != -1) {
                 checked[index] = true;
 
-                resultCourseNames.put(i + 1, otherCourseNames[index]);
+                resultCourse = new CourseResponse(i + 1, otherCourseNames[index], otherCourseLats[index], otherCourseLngs[index]);
+                resultCourses.add(resultCourse);
+//                resultCourseNames.put(i + 1, otherCourseNames[index]);
                 resultCourseLats[i] = otherCourseLats[index];
                 resultCourseLngs[i] = otherCourseLngs[index];
 
@@ -134,9 +136,11 @@ public class CourseService {
                 firstCourseLng = otherCourseLngs[index];
             }
         }
-        CourseResponse courseResponse = new CourseResponse(resultCourseNames, resultCourseLats, resultCourseLngs);
+        System.out.println(resultCourses);
+        CourseResponseList courseResponseList = new CourseResponseList(resultCourses);
+//        CourseResponse courseResponse = new CourseResponse(resultCourseNames, resultCourseLats, resultCourseLngs);
 
-        return courseResponse;
+        return courseResponseList;
     }
 
 }
