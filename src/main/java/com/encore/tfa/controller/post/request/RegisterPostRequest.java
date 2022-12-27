@@ -1,7 +1,6 @@
 package com.encore.tfa.controller.post.request;
 
 import lombok.Getter;
-import java.time.LocalDateTime;
 
 @Getter
 public class RegisterPostRequest {

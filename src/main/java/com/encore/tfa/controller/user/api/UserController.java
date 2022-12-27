@@ -1,8 +1,5 @@
 package com.encore.tfa.controller.user.api;
 
-import com.encore.tfa.service.File.FireBaseService;
-import com.google.firebase.auth.FirebaseAuthException;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.encore.tfa.controller.user.request.UserLoginRequest;
 import com.encore.tfa.controller.user.request.UserSignUpRequest;
 import com.encore.tfa.controller.user.request.UserUpdateRequest;

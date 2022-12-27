@@ -1,10 +1,9 @@
-package com.encore.tfa.service.File;
+package com.encore.tfa.service.file;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
-
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,9 +20,7 @@ public class FireBaseService {
     @Value("${app.firebase-bucket}")
     private String firebaseBucket;
 
-    public String uploadFiles(MultipartFile file, String nameFile)
-            throws IOException, FirebaseAuthException {
-
+    public String uploadFiles(MultipartFile file, String fileName) throws IOException {
 
         String id = getUUID();
 

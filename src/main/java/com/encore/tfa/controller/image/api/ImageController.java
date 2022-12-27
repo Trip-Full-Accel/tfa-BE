@@ -1,7 +1,7 @@
 package com.encore.tfa.controller.image.api;
 
 import com.encore.tfa.controller.user.response.UserDetailResponse;
-import com.encore.tfa.service.File.FireBaseService;
+import com.encore.tfa.service.file.FireBaseService;
 import com.encore.tfa.service.image.ImageService;
 import com.google.firebase.auth.FirebaseAuthException;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class ImageController {
     }
 
     @PostMapping("/files")
-    public String uploadFile(@RequestPart MultipartFile file)
+    public String uploadFile(@RequestPart MultipartFile file, String fileName)
             throws IOException, FirebaseAuthException {
         if (file.isEmpty()) {
             return "is empty";

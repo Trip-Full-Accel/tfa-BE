@@ -1,12 +1,10 @@
 package com.encore.tfa.util.mapper;
 
-import com.encore.tfa.controller.place.request.UpdatePlaceInfo;
 import com.encore.tfa.controller.post.request.RegisterPostRequest;
 import com.encore.tfa.controller.post.request.UpdatePostRequest;
 import com.encore.tfa.controller.post.response.PostDetailResponse;
 import com.encore.tfa.controller.post.response.RegisterPostResponse;
 import com.encore.tfa.controller.post.response.UpdatePostResponse;
-import com.encore.tfa.model.place.Place;
 import com.encore.tfa.model.post.Post;
 import com.encore.tfa.model.user.User;
 import com.encore.tfa.service.post.dto.PostUpdateDTO;
