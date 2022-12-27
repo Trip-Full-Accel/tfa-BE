@@ -8,20 +8,22 @@ import com.encore.tfa.controller.place.response.RegisterPlaceResponse;
 import com.encore.tfa.controller.place.response.UpdatePlaceResponse;
 import com.encore.tfa.model.course.Course;
 import com.encore.tfa.model.place.Place;
+import com.encore.tfa.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceMapper {
 
-    public static Place convertRegisterRequestToPlace(RegisterPlaceRequest registerPlaceRequest, Course course) {
+    public static Place convertRegisterRequestToPlace(RegisterPlaceRequest registerPlaceRequest, Course course, User user) {
         return Place.builder()
-                .course(course)
-                .placeName(registerPlaceRequest.getPlaceName())
-                .lat(registerPlaceRequest.getLat())
-                .lng(registerPlaceRequest.getLng())
-                .pathOrder(registerPlaceRequest.getPathOrder())
-                .build();
+            .user(user)
+            .course(course)
+            .placeName(registerPlaceRequest.getPlaceName())
+            .lat(registerPlaceRequest.getLat())
+            .lng(registerPlaceRequest.getLng())
+            .pathOrder(registerPlaceRequest.getPathOrder())
+            .build();
     }
 
     public static RegisterMultiPlaceResponse convertEntitiesToRegisterResponse(List<Place> places, Long courseId) {

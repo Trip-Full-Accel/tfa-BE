@@ -6,15 +6,12 @@ import com.encore.tfa.controller.place.request.UpdateMultiPlacesRequest;
 import com.encore.tfa.controller.place.request.UpdatePlaceInfo;
 import com.encore.tfa.controller.place.response.*;
 import com.encore.tfa.exception.NonExistResourceException;
-import com.encore.tfa.exception.WrongRequestException;
 import com.encore.tfa.model.course.Course;
 import com.encore.tfa.model.place.Place;
-import com.encore.tfa.model.post.Post;
 import com.encore.tfa.model.user.User;
 import com.encore.tfa.repository.course.CourseRepository;
 import com.encore.tfa.repository.place.PlaceRepository;
 import com.encore.tfa.repository.user.UserRepository;
-import com.encore.tfa.service.place.dto.PlaceUpdateDTO;
 import com.encore.tfa.util.mapper.PlaceMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +24,13 @@ public class PlaceService {
 
     private final CourseRepository courseRepository;
     private final PlaceRepository placeRepository;
+    private final UserRepository userRepository;
 
-    public PlaceService(CourseRepository courseRepository, PlaceRepository placeRepository) {
+    public PlaceService(CourseRepository courseRepository, PlaceRepository placeRepository,
+        UserRepository userRepository) {
         this.courseRepository = courseRepository;
         this.placeRepository = placeRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -43,6 +43,9 @@ public class PlaceService {
     }
 
     private List<Place> createPlaces(RegisterMultiPlaceRequest request) {
+        User user = userRepository.findById(request.getUserId())
+            .orElseThrow(()-> new NonExistResourceException("User could not be found"));
+
         Course course = courseRepository.findById(request.getCourseId())
                 .orElseThrow(()-> new NonExistResourceException("Course could not be found"));
 
@@ -51,9 +54,8 @@ public class PlaceService {
         List<Place> places = new ArrayList<>();
 
         for (RegisterPlaceRequest registerPlaceRequest : registerPlaceRequestList) {
-            places.add(PlaceMapper.convertRegisterRequestToPlace(registerPlaceRequest, course));
+            places.add(PlaceMapper.convertRegisterRequestToPlace(registerPlaceRequest, course, user));
         }
-
         return places;
     }
 

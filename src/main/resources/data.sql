@@ -10,8 +10,8 @@ INSERT INTO user (user_code, nickname, email)
       ('testCode9','testNick9','testEmail9'),
       ('testCode10','testNick10','testEmail10');
 
-INSERT INTO post (user_id,title,content)
-    VALUE (1,'제목1','내용1'),
+INSERT INTO post (user_id,title,content, url)
+    VALUE (1,'제목1','내용1',),
       (3,'제목2','내용2'),
       (4,'제목3','내용3'),
       (7,'제목4','내용4'),

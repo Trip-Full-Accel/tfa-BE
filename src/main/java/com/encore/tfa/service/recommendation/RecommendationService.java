@@ -16,7 +16,7 @@ public class RecommendationService {
         this.recommendationRepository = recommendationRepository;
     }
 
-    public List<Recommendation> selectRecommendation(){
-        return recommendationRepository.findAll();
+    public List<Recommendation> selectRecommendation(Integer cityCode){
+        return recommendationRepository.findByCityCode(cityCode);
     }
 }

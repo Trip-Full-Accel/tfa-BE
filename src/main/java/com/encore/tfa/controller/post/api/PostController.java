@@ -40,4 +40,8 @@ public class PostController {
         return ResponseEntity.ok().body(postService.findPostByUserId(userId));
     }
 
+    @GetMapping()
+    public ResponseEntity<ViewPostsResponse> viewPosts(){
+        return ResponseEntity.ok().body(postService.viewPosts());
+    }
 }

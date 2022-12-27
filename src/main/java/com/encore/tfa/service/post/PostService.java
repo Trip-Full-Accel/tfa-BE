@@ -6,6 +6,7 @@ import com.encore.tfa.controller.post.response.MyPagePostResponse;
 import com.encore.tfa.controller.post.response.PostDetailResponse;
 import com.encore.tfa.controller.post.response.RegisterPostResponse;
 import com.encore.tfa.controller.post.response.UpdatePostResponse;
+import com.encore.tfa.controller.post.response.ViewPostsResponse;
 import com.encore.tfa.exception.NonExistResourceException;
 import com.encore.tfa.exception.WrongRequestException;
 import com.encore.tfa.model.post.Post;
@@ -73,6 +74,12 @@ public class PostService {
         post.deletePost();
 
         return postId;
+    }
+
+    @Transactional
+    public ViewPostsResponse viewPosts(){
+        List<Post> posts = postRepository.findAll();
+        return new ViewPostsResponse(posts);
     }
 
     @Transactional(readOnly = true)

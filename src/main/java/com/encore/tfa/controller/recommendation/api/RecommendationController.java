@@ -4,6 +4,7 @@ import com.encore.tfa.model.recommendation.Recommendation;
 import com.encore.tfa.service.recommendation.RecommendationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +20,8 @@ public class RecommendationController {
         this.recommendationService = recommendationService;
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Recommendation>> selectRecommend(){
-        return ResponseEntity.ok().body(recommendationService.selectRecommendation());
+    @GetMapping({"/{city-code}"})
+    public ResponseEntity<List<Recommendation>> selectRecommend(@PathVariable("city-code") Integer cityCode){
+        return ResponseEntity.ok().body(recommendationService.selectRecommendation(cityCode));
     }
 }
