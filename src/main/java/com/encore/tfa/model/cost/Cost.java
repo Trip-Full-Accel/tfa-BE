@@ -49,7 +49,11 @@ public class Cost extends BaseEntity {
     @Column(nullable = false, columnDefinition = "int default 1")
     private Integer member;
 
-    public Cost(Long id, User user, Course course, Integer transCost, Integer foodCost, Integer hotelCost, Integer extraCost, Integer totalCost, Integer member) {
+    @Column(columnDefinition = "bit(1) default 0", length = 1)
+    private Boolean state;
+
+    public Cost(Long id, User user, Course course, Integer transCost, Integer foodCost, Integer hotelCost,
+        Integer extraCost, Integer totalCost, Integer member, Boolean state) {
         this.id = id;
         this.user = user;
         this.course = course;
@@ -59,6 +63,7 @@ public class Cost extends BaseEntity {
         this.extraCost = extraCost;
         this.totalCost = totalCost;
         this.member = member;
+        this.state = state;
     }
 
     public void updateCost(CostUpdateDTO dto){
@@ -73,15 +78,16 @@ public class Cost extends BaseEntity {
     @Override
     public String toString() {
         return "Cost{" +
-                "id=" + id +
-                ", user=" + user +
-                ", course=" + course +
-                ", transCost=" + transCost +
-                ", foodCost=" + foodCost +
-                ", hotelCost=" + hotelCost +
-                ", extraCost=" + extraCost +
-                ", totalCost=" + totalCost +
-                ", member=" + member +
-                '}';
+            "id=" + id +
+            ", user=" + user +
+            ", course=" + course +
+            ", transCost=" + transCost +
+            ", foodCost=" + foodCost +
+            ", hotelCost=" + hotelCost +
+            ", extraCost=" + extraCost +
+            ", totalCost=" + totalCost +
+            ", member=" + member +
+            ", state=" + state +
+            '}';
     }
 }
