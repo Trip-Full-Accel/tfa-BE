@@ -9,9 +9,9 @@ import java.util.List;
 @Builder
 public class MyPageCourseResponse {
 
-    private final List<CourseDetailResponse> courseDetailResponseList;
+    private final List<FoundCourseByUserId> foundCoursesByUserId;
 
-    public MyPageCourseResponse(List<CourseDetailResponse> courseDetailResponseList) {
-        this.courseDetailResponseList = courseDetailResponseList;
+    public MyPageCourseResponse(List<FoundCourseByUserId> foundCoursesByUserId) {
+        this.foundCoursesByUserId = foundCoursesByUserId;
     }
 }

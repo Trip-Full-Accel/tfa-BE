@@ -59,20 +59,6 @@ public class PlaceService {
         return places;
     }
 
-    @Transactional(readOnly = true)
-    public RetrievePlacesResponse retrievePlaces(Long courseId){
-
-        List<Place> places = placeRepository.findByCourseId(courseId);
-
-        List<PlaceDetailsResponse> placeDetailsResponses = new ArrayList<>();
-
-        for (Place place : places){
-            placeDetailsResponses.add(PlaceMapper.convertEntityToDetailResponse(place));
-        }
-
-        return new RetrievePlacesResponse(courseId, placeDetailsResponses);
-    }
-
     @Transactional
     public UpdatePlaceResponse updatePlaces(Long courseId, UpdateMultiPlacesRequest request){
 

@@ -5,6 +5,8 @@ import com.encore.tfa.controller.post.request.UpdatePostRequest;
 import com.encore.tfa.controller.post.response.*;
 import com.encore.tfa.service.post.PostService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +17,14 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/{post-id}")
+    @GetMapping("/detail/{post-id}")
     public ResponseEntity<PostDetailResponse> postDetail(@PathVariable("post-id") Long postId) {
         return ResponseEntity.ok().body(postService.findPostById(postId));
     }
 
     @PostMapping()
-    public ResponseEntity<RegisterPostResponse> registerPost(@RequestBody RegisterPostRequest request) {
-        return ResponseEntity.ok().body(postService.registerPost(request));
+    public ResponseEntity<PostDetailResponse> registerPost(@RequestBody RegisterPostRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.registerPost(request));
     }
 
     @PutMapping("/{post-id}")

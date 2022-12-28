@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.cloud.StorageClient;
 
 @Service

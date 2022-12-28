@@ -1,5 +1,6 @@
 package com.encore.tfa.util.mapper;
 
+import com.encore.tfa.controller.course.response.PlacesFromCourse;
 import com.encore.tfa.controller.place.request.RegisterPlaceRequest;
 import com.encore.tfa.controller.place.request.UpdatePlaceInfo;
 import com.encore.tfa.controller.place.response.PlaceDetailsResponse;
@@ -13,6 +14,10 @@ import com.encore.tfa.model.user.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PlaceMapper {
 
     public static Place convertRegisterRequestToPlace(RegisterPlaceRequest registerPlaceRequest, Course course, User user) {
@@ -42,16 +47,6 @@ public class PlaceMapper {
         return new RegisterMultiPlaceResponse(courseId, responses);
     }
 
-    public static PlaceDetailsResponse convertEntityToDetailResponse(Place place){
-        return PlaceDetailsResponse.builder()
-                .placeId(place.getId())
-                .placeName(place.getPlaceName())
-                .lat(place.getLat())
-                .lng(place.getLng())
-                .pathOrder(place.getPathOrder())
-                .build();
-    }
-
     public static Place convertUpdateInfoToEntity(UpdatePlaceInfo info){
         return Place.builder()
                 .id(info.getPlaceId())
@@ -76,5 +71,15 @@ public class PlaceMapper {
         }
 
         return new UpdatePlaceResponse(courseId, placeDetailsResponses);
+    }
+
+    public static PlacesFromCourse convertPlaceToFromCourseResponse(Place place){
+        return PlacesFromCourse.builder()
+            .placeId(place.getId())
+            .placeName(place.getPlaceName())
+            .lat(place.getLat())
+            .lng(place.getLng())
+            .pathOrder(place.getPathOrder())
+            .build();
     }
 }

@@ -10,17 +10,37 @@ INSERT INTO user (user_code, nickname, email)
       ('testCode9','testNick9','testEmail9'),
       ('testCode10','testNick10','testEmail10');
 
-INSERT INTO post (user_id,title,content, url)
-    VALUE (1,'제목1','내용1',),
-      (3,'제목2','내용2'),
-      (4,'제목3','내용3'),
-      (7,'제목4','내용4'),
-      (3,'제목5','내용5'),
-      (1,'제목6','내용6'),
-      (7,'제목7','내용7'),
-      (10,'제목8','내용8'),
-      (2,'제목9','내용9'),
-      (3,'제목10','내용10');
+INSERT INTO post (user_id,created_at,title,content,url)
+    VALUE (1,'2021-11-08T11:44:30.327959','경주 보문정에 다녀왔어요~','경주 보문정에 다녀왔는데 날씨도 너무 좋고, 야경이 너무 예뻤어요. 다음에 꼭 다시 가보고싶어요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/%EA%B2%BD%EC%A3%BC%EB%B3%B4%EB%AC%B8%EC%A0%95.png?alt=media&token=?alt=media&token='),
+      (10,'2021-11-09T11:44:30.327959','등산갔다가 예뻐서 올렸어요','오늘 등산할겸 나갔다가 날씨도 너무 좋고, 예뻐서 사진 찍었어요 여러분들도 한번 가 보세요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_08.png?alt=media&token='),
+      (10,'2021-11-10T11:44:30.327959','함께라서 좋은 행복한 순간','해가떨어진 후의 낙산공원의 밤은 너무 멋있네요. 다음에도 꼭 다시 가보려구요^^','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_서울낙산공원.png?alt=media&token='),
+      (1,'2021-11-11T11:44:30.327959','학교 수학여행으로 다녀온 제주도','코로나때문에 해외여행이 취소되어서 슬펐는데… 제주도도 너무 예쁘네요.','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_09.png?alt=media&token='),
+      (2,'2021-11-12T11:44:30.327959','수행평가때문에 가본 경복궁','학교수행평가가 뭐라고……. 이거때문에 서울갔다왔는데 나름 멋있었음요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_야경경복궁.png?alt=media&token='),
+      (3,'2021-11-13T11:44:30.327959','유채꽃 핀 제주도로 놀러오세요~!! ','저희 식당은 제주 산방산 유채꽃이 활짝 핀 아래 있어요… 제주도 오신김에 한번 놀러오세요~!','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_10.png?alt=media&token='),
+      (4,'2021-11-14T11:44:30.327959','장범준 나오라그래~!','오늘 여수밤바다 듣다가 무작정 여수로 달렸습니다. 돌산대교에서 한장 찍었는데 어때요? 여수 밤바다 느낌 나나요?','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_여수돌산대교.png?alt=media&token='),
+      (5,'2021-11-15T11:44:30.327959','혹시 올인 보신분 계신가요???','저 오늘 섭지코지 다녀왔어요~!!!! 바람이 너무 불긴했지만…. 그래도 그때 봤던 드라마 생각에 너무 좋았어요 ><','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_11.png?alt=media&token='),
+      (6,'2021-11-16T11:44:30.327959','오늘 은하수 출사다녀왔어요','여기는 태안에 위치한 운여해변입니다. 한여름에 구름 없는날에만 찍을수 있다는데… 저는 한번에 성공해서 너무 기분이 좋았습니다.','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_운여해변.png?alt=media&token='),
+      (7,'2021-11-17T11:44:30.327959','저 오늘 헤어졌는데.. 기분 전환하고왔어요','저 100일 사귄 여친이랑 헤어졌는데 열받아서 여기갔다가 너무 좋아서 다 까먹었어요…. 잘먹고 잘살라고 소리 치고 왔습니다','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_12.png?alt=media&token='),
+      (8,'2021-11-18T11:44:30.327959','경주 동궁과 월지','다녀오신분 진짜 예쁘지 않나요??? 진짜 사진으로는 다 담기지 않아서 너무 아쉽네요… 꼭 강추드려요… 경주 가실분 있으시면 일부러라도 꼭 일정 잡고 다녀오세요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_월정교.png?alt=media&token='),
+      (9,'2021-11-19T11:44:30.327959','우리 아이들이 너무 좋아했어요','날씨가 흐릴거라했는데… 다행히 날씨가 너무 좋아서 아이도 만족, 저희 부부도 만족한 하루였어요… 아기자기한 캐릭터들이 이곳저곳에 있어서 예쁘기도 하고… 스탬프 투어도 있어서 아이가 지루해 하지 않고 너무 좋아했어요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_13.png?alt=media&token='),
+      (10,'2021-11-20T11:44:30.327959','포항은 처음가봤는데...','여기 생각보다 괜찮더라구요… 포항은 너무 끝에 있는거 같아서 큰맘먹고 왔는데 너무 즐거운 경험이였습니다.','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_포항영일정.png?alt=media&token='),
+      (1,'2021-11-08T11:44:30.327959','제주도 푸른밤에는 못봤고...','낮에 갔는데… 진짜 와………. 너무 예뻐서 말이 안나와요…. 에메랄드빛 바다 진짜 외국나가야지만 보는줄알았는데… 아니더라구요… 운좋으면 돌고래도 보인다는데 저는 못봤어요… ','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_14.png?alt=media&token='),
+      (2,'2021-11-09T11:44:30.327959','이거 망한건가요?','소개팅날 오리배 타러 가자는 분……….. 저 이거 망한거 맞나요…? 그냥 싫으면 싫다하지… 아휴... ','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147.png?alt=media&token='),
+      (2,'2021-11-10T11:44:30.327959','몇일전에 망한거냐고 올렸던 사람입니다','결론부터 말씀드리면 저희 사귀기로했어요… 오리배 타자고 한건 그분도 연애 경험이 없으셔서 그냥 데이트코스 지식인에 찾아서 나온거 가자하신거래요… 저희는 사귀고 첫 데이트는 경건한 마음으로 경복궁에서 하고왔어요…','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_경복궁.png?alt=media&token='),
+      (3,'2021-11-11T11:44:30.327959','여자동창들끼리 다녀온 여행인증','초등학교 동창들끼리 모여서 오랜만에 여행다녀왔어요… 성인되서 시간맞추기 어려웠는데 힘들게 힘들게 맞춰서 다녀왔어요.. 날씨도 좋고 너무 좋았습니다','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_01.png?alt=media&token='),
+      (3,'2021-11-12T11:44:30.327959','광안리 불꽃죽제','드디어 다녀왔어요~!!! 진짜 서울에서 못봐서 너무 아쉬웠는데.. 부산에서 볼수있어서 더 뜻깊고 재밌었어요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_광안대교.png?alt=media&token='),
+      (4,'2021-11-13T11:44:30.327959','한강 다리건너다 날씨 너무 좋아서 찍었어요','오늘 날씨 같이 공유해요 ^0^','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_02.png?alt=media&token='),
+      (4,'2021-11-14T11:44:30.327959','남산 등반성공!!','40분걸리는 거리 오늘 37분만에 올랐습니다… 체력도 좋아지고 매일 이런 야경 볼수있어서 너무 행복해요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_남산타워.jfif?alt=media&token='),
+      (5,'2021-11-15T11:44:30.327959','오늘 불공드리고왔어요','경기도에 있는 보은사 다녀왔어요.. 엄마가 가자고 가자고해서 다녀왔습니다. 회사 연차까지내라해서 좀 짜증났는데 막상 가보니깐 너무 신기하고 놀라웠어요.. 잇님들도 다녀와보세요 !','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_03.png?alt=media&token='),
+      (5,'2021-11-16T11:44:30.327959','야경맛집 추천드려요','오늘 남한산성 야경 보고왔어요.. 남친이 가자고 가자고 노래불렀었는데 싫다고싫다했었거든요?? 근데 막상 가보니깐 진짜 서울이 제 발아래 있더라구요.. 진짜 강추합니다… 좀 걸어 올라가긴해야하는데… 그 짜증이 한번에 바뀝니다','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_남한산성.jfif?alt=media&token='),
+      (6,'2021-11-17T11:44:30.327959','방화수류정 여름에 가봤나요??','봄에는 벚꽃.. 가을에는 단풍맛집이지만… 여름에 가는것도 좋은거 같아요.. 봄, 가을에 비해 사람도 없고 오롯이 즐길수 있어서 너무 좋아요~!!','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_04.png?alt=media&token='),
+      (6,'2021-11-18T11:44:30.327959','엑스포 세대 분들 계세요??','대전엑스포했던게 엊그제 같은데… 꿈돌이 동산은 없어지고.. 남은건 대전 엑스포 다리뿐이네요.. 그래도 야경은 참 멋있죠?? 오랜만에 넋두리 한번 해봤습니다.. 좋은 저녁되세요 ~!','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_대전엑스포다리.png?alt=media&token='),
+      (7,'2021-11-19T11:44:30.327959','와… 한여름에 레일바이크 절대 타지마세요','사진으론 평화롭고 좋아보이지만… 실상은 너무 덥고 땀나고 너무 힘들어요… 앞사람들도 힘든지 너무 천천히가서 더 시간이 오래걸려서 더워서 죽을뻔했습니다','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_05.png?alt=media&token='),
+      (7,'2021-11-20T11:44:30.327959','동탄 호수공원 잘해놨네요','큰어머니댁에 놀러왔는데 진짜 예쁘더라구요… 여기 사시는분들은 좋겠어요… 이런데서 매일 산책하시는거 많이 부러워요','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_동탄호수공원.png?alt=media&token='),
+      (8,'2021-11-21T11:44:30.327959','대관령 육백마지기','여름엔 시원하다 해서 올라와봤는데… 시원한걸 넘어서 너무 추워요… ','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_06.png?alt=media&token='),
+      (8,'2021-11-22T11:44:30.327959','민속촌 야간개장 오픈했네요','가을이지만 아직 덥잖아요.. 저녁에 한번 다녀오시는것도 나쁘진 않을거 같아요~!!','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_민속촌.png?alt=media&token='),
+      (9,'2021-11-23T11:44:30.327959','저 오늘 제주도에서 헬기탔어요','남자친구가 뜬금없이 제주도여행에 헬기 타자해서 좀 그랬는데… 이게 왠걸 막상 타보니깐 너무 예쁘더라구요… 정말 색다른 경험이였습니다.','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_20221227_203547147_07.png?alt=media&token='),
+      (9,'2021-11-24T11:44:30.327959','밀양영화보신분??','전도연 좋아서 보다가 결국 밀양까지 놀러왔어요… 딱히 볼건 업는데… 야경의 영남루는 알록달록 산책하기 좋더라구요.. 참고하세요 ~!','https://firebasestorage.googleapis.com/v0/b/tripfullaccel.appspot.com/o/KakaoTalk_밀양영남루.png?alt=media&token=');
 
 INSERT INTO course (user_id,course_name)
     VALUE (1,'서울'),

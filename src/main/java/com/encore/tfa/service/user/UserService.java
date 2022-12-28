@@ -1,6 +1,5 @@
 package com.encore.tfa.service.user;
 
-import com.encore.tfa.controller.user.request.UserLoginRequest;
 import com.encore.tfa.controller.user.request.UserSignUpRequest;
 import com.encore.tfa.controller.user.request.UserUpdateRequest;
 import com.encore.tfa.controller.user.response.UserCodeCheckResponse;
@@ -34,15 +33,27 @@ public class UserService {
 	}
 
 	@Transactional
-	public Long signUpUser(UserSignUpRequest userSignUpRequest) {
-		Optional<User> user = userRepository.findByUserCode(userSignUpRequest.getUserCode()); // 중복가입을 방지하기 위한 코드 체크
-		if(user.isPresent())
-			throw new NonExistResourceException("User Id already existed");
+	public UserLoginResponse signUpUser(UserSignUpRequest userSignUpRequest) {
+		Optional<User> foundUser = userRepository.findByUserCode(userSignUpRequest.getUserCode()); // 중복가입을 방지하기 위한 코드 체크
+		if(foundUser.isEmpty()){
+			User signupUser = checkUser(foundUser, userSignUpRequest);
+			return UserMapper.of().convertEntityToUserLoginResponse(signupUser);
+		}
+		User user = userRepository.findExistUserByUserCode(userSignUpRequest.getUserCode());
+		return UserMapper.of().convertEntityToUserLoginResponse(user);
+	}
 
-		User newUser = UserMapper.of().convertSignUpRequestToEntity(userSignUpRequest);
-		User savedUser = userRepository.save(newUser);
+	private User checkUser(Optional<User> foundUser, UserSignUpRequest userSignUpRequest){
+		return foundUser.isEmpty() ? userRepository.save(signUp(userSignUpRequest)) : foundUser.get();
+	}
 
-		return savedUser.getId();
+	private User signUp(UserSignUpRequest userSignUpRequest){
+		return User.builder()
+			.userCode(userSignUpRequest.getUserCode())
+			.nickname(userSignUpRequest.getNickname())
+			.email(userSignUpRequest.getEmail())
+			.state(userSignUpRequest.getState())
+			.build();
 	}
 
 	@Transactional(readOnly = true)
@@ -54,13 +65,6 @@ public class UserService {
 	public User checkUserIdExistIsCorrect(String userCode) {
 		return userRepository.findByUserCode(userCode)
 				.orElseThrow(() -> new NonExistResourceException("user does not exist"));
-	}
-
-	@Transactional
-	public UserLoginResponse loginUser(UserLoginRequest userLoginRequest) {
-		User user = checkUserIdExistIsCorrect(userLoginRequest.getUserCode());
-
-		return UserMapper.of().convertEntityToUserLoginResponse(user);
 	}
 
 	@Transactional

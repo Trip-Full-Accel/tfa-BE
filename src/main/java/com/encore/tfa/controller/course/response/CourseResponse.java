@@ -1,24 +1,17 @@
 package com.encore.tfa.controller.course.response;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
-import java.util.Map;
 
 @Getter
 public class CourseResponse {
 
-    private Integer courseOrders;
+    private final Integer courseOrders;
 
-    private String courseNames;
+    private final String courseNames;
 
-    private Double courseLats;
+    private final Double courseLats;
 
-    private Double courseLngs;
+    private final Double courseLngs;
 
     public CourseResponse(Integer courseOrders, String courseNames, Double courseLats, Double courseLngs) {
         this.courseOrders = courseOrders;

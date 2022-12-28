@@ -6,6 +6,8 @@ import com.encore.tfa.controller.place.response.RegisterMultiPlaceResponse;
 import com.encore.tfa.controller.place.response.RetrievePlacesResponse;
 import com.encore.tfa.controller.place.response.UpdatePlaceResponse;
 import com.encore.tfa.service.place.PlaceService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +23,7 @@ public class PlaceController {
 
     @PostMapping
     public ResponseEntity<RegisterMultiPlaceResponse> registerPlace(@RequestBody RegisterMultiPlaceRequest request) {
-        return ResponseEntity.ok().body(placeService.registerPlace(request));
-    }
-
-    @GetMapping("/{course-id}")
-    public ResponseEntity<RetrievePlacesResponse> retrievePlaces(@PathVariable("course-id") Long courseId) {
-        return ResponseEntity.ok().body(placeService.retrievePlaces(courseId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(placeService.registerPlace(request));
     }
 
     @PutMapping("/{course-id}")
@@ -34,6 +31,4 @@ public class PlaceController {
                                                             @RequestBody UpdateMultiPlacesRequest request) {
         return ResponseEntity.ok().body(placeService.updatePlaces(courseId, request));
     }
-
-//    @DeleteMapping("/{}")
 }

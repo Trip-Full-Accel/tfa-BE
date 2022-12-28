@@ -6,9 +6,10 @@ import com.encore.tfa.controller.course.response.MyPageCourseResponse;
 import com.encore.tfa.controller.course.response.RegisterCourseResponse;
 import com.encore.tfa.controller.course.request.CreateCourseRequest;
 import com.encore.tfa.service.course.CourseService;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping("/courses")
@@ -19,7 +20,7 @@ public class CourseController {
 
     @PostMapping
     public ResponseEntity<RegisterCourseResponse> registerCourse(@RequestBody RegisterCourseRequest request){
-        return ResponseEntity.ok().body(courseService.registerCourse(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseService.registerCourse(request));
     }
 
     @GetMapping("/{user-id}")

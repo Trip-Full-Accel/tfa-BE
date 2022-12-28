@@ -1,9 +1,10 @@
 package com.encore.tfa.util.mapper;
 
+import com.encore.tfa.controller.course.response.PlacesFromCourse;
 import com.encore.tfa.controller.post.request.RegisterPostRequest;
 import com.encore.tfa.controller.post.request.UpdatePostRequest;
 import com.encore.tfa.controller.post.response.PostDetailResponse;
-import com.encore.tfa.controller.post.response.RegisterPostResponse;
+import com.encore.tfa.controller.post.response.PostsResponse;
 import com.encore.tfa.controller.post.response.UpdatePostResponse;
 import com.encore.tfa.model.post.Post;
 import com.encore.tfa.model.user.User;
@@ -18,10 +19,13 @@ public class PostMapper {
         return PostDetailResponse.builder()
                 .postId(post.getId())
                 .userId(post.getUser().getId())
+                .nickname(post.getUser().getNickname())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .hits(post.getHits())
                 .url(post.getUrl())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .build();
     }
 
@@ -31,17 +35,6 @@ public class PostMapper {
                 .title((request.getTitle()))
                 .content(request.getContent())
                 .url(request.getUrl())
-                .build();
-
-    }
-
-    public static RegisterPostResponse convertPostToRegisterResponse(Post post){
-        return RegisterPostResponse.builder()
-                .postId(post.getId())
-                .userId(post.getUser().getId())
-                .title(post.getTitle())
-                .content(post.getContent())
-                .url(post.getUrl())
                 .build();
 
     }
@@ -63,7 +56,17 @@ public class PostMapper {
                 .build();
     }
 
-
+    public static PostsResponse convertPostsToViewResponse(Post post){
+        return PostsResponse.builder()
+            .userId(post.getUser().getId())
+            .nickname(post.getUser().getNickname())
+            .postId(post.getId())
+            .title(post.getTitle())
+            .content(post.getContent())
+            .hits(post.getHits())
+            .url(post.getUrl())
+            .build();
+    }
 }
 
 

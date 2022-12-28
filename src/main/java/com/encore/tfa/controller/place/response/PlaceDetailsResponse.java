@@ -2,7 +2,6 @@ package com.encore.tfa.controller.place.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 @Builder

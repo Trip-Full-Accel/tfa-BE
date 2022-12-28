@@ -4,7 +4,7 @@ import com.encore.tfa.controller.post.request.RegisterPostRequest;
 import com.encore.tfa.controller.post.request.UpdatePostRequest;
 import com.encore.tfa.controller.post.response.MyPagePostResponse;
 import com.encore.tfa.controller.post.response.PostDetailResponse;
-import com.encore.tfa.controller.post.response.RegisterPostResponse;
+import com.encore.tfa.controller.post.response.PostsResponse;
 import com.encore.tfa.controller.post.response.UpdatePostResponse;
 import com.encore.tfa.controller.post.response.ViewPostsResponse;
 import com.encore.tfa.exception.NonExistResourceException;
@@ -39,15 +39,14 @@ public class PostService {
         post.increaseHits();
 
         return PostMapper.convertPostToDetailResponse(post);
-
     }
 
     @Transactional
-    public RegisterPostResponse registerPost(RegisterPostRequest request) {
+    public PostDetailResponse registerPost(RegisterPostRequest request) {
         Post post = postRepository.save(
                 createPostInstance(request));
 
-        return PostMapper.convertPostToRegisterResponse(post);
+        return PostMapper.convertPostToDetailResponse(post);
     }
 
     @Transactional
@@ -79,7 +78,13 @@ public class PostService {
     @Transactional
     public ViewPostsResponse viewPosts(){
         List<Post> posts = postRepository.findAll();
-        return new ViewPostsResponse(posts);
+        List<PostsResponse> postsResponses = new ArrayList<>();
+
+        for (Post post : posts){
+            postsResponses.add(PostMapper.convertPostsToViewResponse(post));
+        }
+
+        return new ViewPostsResponse(postsResponses);
     }
 
     @Transactional(readOnly = true)
@@ -95,7 +100,6 @@ public class PostService {
 
         for (Post post : postList){
             postDetailResponseList.add(PostMapper.convertPostToDetailResponse(post));
-
         }
 
         return new MyPagePostResponse(postDetailResponseList);

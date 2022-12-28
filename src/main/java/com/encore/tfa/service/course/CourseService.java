@@ -4,15 +4,20 @@ import com.encore.tfa.controller.course.request.RegisterCourseRequest;
 import com.encore.tfa.controller.course.response.*;
 import com.encore.tfa.exception.NonExistResourceException;
 import com.encore.tfa.model.course.Course;
+import com.encore.tfa.model.place.Place;
+import com.encore.tfa.model.post.Post;
 import com.encore.tfa.model.user.User;
 import com.encore.tfa.repository.course.CourseRepository;
+import com.encore.tfa.repository.place.PlaceRepository;
+import com.encore.tfa.repository.post.PostRepository;
 import com.encore.tfa.repository.user.UserRepository;
 import com.encore.tfa.controller.course.request.CreateCourseRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-
+import com.encore.tfa.util.mapper.CostMapper;
 import com.encore.tfa.util.mapper.CourseMapper;
+import com.encore.tfa.util.mapper.PlaceMapper;
+import com.encore.tfa.util.mapper.PostMapper;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +28,12 @@ import java.util.List;
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
-
     private final UserRepository userRepository;
-
-    public CourseService(CourseRepository courseRepository, UserRepository userRepository) {
+    private final PlaceRepository placeRepository;
+    public CourseService(CourseRepository courseRepository, UserRepository userRepository,PlaceRepository placeRepository) {
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
+        this.placeRepository = placeRepository;
     }
 
     @Transactional(readOnly = true)
@@ -37,16 +42,23 @@ public class CourseService {
                 .orElseThrow(() -> new NonExistResourceException("User could not be found"));
 
         List<Course> courseList = courseRepository.findAllByUserId(user.getId());
-
         if (courseList.isEmpty()) throw new NonExistResourceException("Course does not exist");
 
-        List<CourseDetailResponse> courseDetailResponseList = new ArrayList<>();
+        List<FoundCourseByUserId> foundCoursesByUserId = new ArrayList<>();
+
+        List<PlacesFromCourse> placesFromCourse = new ArrayList<>();
 
         for (Course course : courseList) {
-            courseDetailResponseList.add(CourseMapper.of().convertCourseToDetailResponse(course));
+
+            List<Place> foundPlaces = placeRepository.findByCourseId(course.getId());
+
+            for(Place place : foundPlaces){
+                placesFromCourse.add(PlaceMapper.convertPlaceToFromCourseResponse(place));
+            }
+            foundCoursesByUserId.add(CourseMapper.of().convertToFoundCourses(course, placesFromCourse));
         }
 
-        return new MyPageCourseResponse(courseDetailResponseList);
+        return new MyPageCourseResponse(foundCoursesByUserId);
     }
 
     @Transactional
@@ -101,7 +113,6 @@ public class CourseService {
         List<CourseResponse> resultCourses = new ArrayList<>();
         CourseResponse resultCourse = new CourseResponse(1, firstCourseName, firstCourseLat, firstCourseLng);
         resultCourses.add(resultCourse);
-//        Map<Integer, String> resultCourseNames = new HashMap<>();
 
         Double[] resultCourseLats = new Double[otherCourseNames.length + 1];
         Double[] resultCourseLngs = new Double[otherCourseNames.length + 1];
@@ -128,7 +139,6 @@ public class CourseService {
 
                 resultCourse = new CourseResponse(i + 1, otherCourseNames[index], otherCourseLats[index], otherCourseLngs[index]);
                 resultCourses.add(resultCourse);
-//                resultCourseNames.put(i + 1, otherCourseNames[index]);
                 resultCourseLats[i] = otherCourseLats[index];
                 resultCourseLngs[i] = otherCourseLngs[index];
 
@@ -136,11 +146,7 @@ public class CourseService {
                 firstCourseLng = otherCourseLngs[index];
             }
         }
-        System.out.println(resultCourses);
-        CourseResponseList courseResponseList = new CourseResponseList(resultCourses);
-//        CourseResponse courseResponse = new CourseResponse(resultCourseNames, resultCourseLats, resultCourseLngs);
-
-        return courseResponseList;
+        return new CourseResponseList(resultCourses);
     }
 
 }

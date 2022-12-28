@@ -1,9 +1,12 @@
 package com.encore.tfa.util.mapper;
 
+import java.util.Optional;
+
 import com.encore.tfa.controller.user.request.UserSignUpRequest;
 import com.encore.tfa.controller.user.request.UserUpdateRequest;
 import com.encore.tfa.controller.user.response.UserDeleteResponse;
 import com.encore.tfa.controller.user.response.UserDetailResponse;
+import com.encore.tfa.controller.user.response.UserIdResponse;
 import com.encore.tfa.controller.user.response.UserLoginResponse;
 import com.encore.tfa.model.user.User;
 import com.encore.tfa.service.user.dto.UserUpdateDTO;
@@ -20,6 +23,10 @@ public class UserMapper {
             userMapper = new UserMapper();
         }
         return userMapper;
+    }
+
+    public UserIdResponse convertSignUpedUserToIdResponse(User user){
+        return new UserIdResponse(user.getId());
     }
 
     public User convertSignUpRequestToEntity(UserSignUpRequest userSignUpRequest) {

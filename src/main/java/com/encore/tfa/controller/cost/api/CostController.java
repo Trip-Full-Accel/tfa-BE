@@ -7,6 +7,8 @@ import com.encore.tfa.controller.cost.response.RegisterCostResponse;
 import com.encore.tfa.controller.cost.response.UpdateCostResponse;
 import com.encore.tfa.service.cost.CostService;
 import com.encore.tfa.controller.cost.response.MyPageCostResponse;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,10 +24,10 @@ public class CostController {
 
     @PostMapping
     public ResponseEntity<RegisterCostResponse> registerCost(@RequestBody RegisterCostRequest request) {
-        return ResponseEntity.ok().body(costService.registerCost(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(costService.registerCost(request));
     }
 
-    @GetMapping({"/{cost-id}"})
+    @GetMapping({"/detail/{cost-id}"})
     public ResponseEntity<CostDetailResponse> findCostById(@PathVariable("cost-id") Long costId) {
         return ResponseEntity.ok().body(costService.findCostById(costId));
     }
