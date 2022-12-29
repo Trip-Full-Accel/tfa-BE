@@ -77,7 +77,7 @@ public class PostService {
 
     @Transactional
     public ViewPostsResponse viewPosts(){
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllByOrderByCreatedAtDesc();
         List<PostsResponse> postsResponses = new ArrayList<>();
 
         for (Post post : posts){

@@ -3,11 +3,11 @@ package com.encore.tfa;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class TfaApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+// @SpringBootTest
+// class TfaApplicationTests {
+//
+// 	@Test
+// 	void contextLoads() {
+// 	}
+//
+// }

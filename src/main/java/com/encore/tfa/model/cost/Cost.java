@@ -46,7 +46,7 @@ public class Cost extends BaseEntity {
     @Column(nullable = true, columnDefinition = "int")
     private Integer totalCost;
 
-    @Column(nullable = false, columnDefinition = "int default 1")
+    @Column(nullable = true, columnDefinition = "int default 1")
     private Integer member;
 
     @Column(columnDefinition = "bit(1) default 0", length = 1)

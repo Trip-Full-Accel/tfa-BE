@@ -9,67 +9,8 @@
     "url" : "http://localhost:8081"
   } ],
   "tags" : [ ],
-  "paths" : {
-    "/user/{user-id}" : {
-      "get" : {
-        "tags" : [ "user" ],
-        "operationId" : "user-details",
-        "parameters" : [ {
-          "name" : "user-id",
-          "in" : "path",
-          "description" : "유저 아이디",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "200",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/user-user-id-1696694344"
-                },
-                "examples" : {
-                  "user-details" : {
-                    "value" : "{\"userId\":\"blabla\",\"password\":\"qwer1324!\",\"nickname\":\"스폰지밥\",\"email\":\"encore@naver.com\",\"phone\":\"010-1111-2222\"}"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
+  "paths" : { },
   "components" : {
-    "schemas" : {
-      "user-user-id-1696694344" : {
-        "type" : "object",
-        "properties" : {
-          "password" : {
-            "type" : "string",
-            "description" : "유저 패스워드"
-          },
-          "phone" : {
-            "type" : "string",
-            "description" : "유저 핸드폰 번호"
-          },
-          "nickname" : {
-            "type" : "string",
-            "description" : "유저 닉네임"
-          },
-          "userId" : {
-            "type" : "string",
-            "description" : "유저 아이디"
-          },
-          "email" : {
-            "type" : "string",
-            "description" : "유저 이메일"
-          }
-        }
-      }
-    }
+    "schemas" : { }
   }
 }

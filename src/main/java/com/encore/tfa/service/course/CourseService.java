@@ -46,16 +46,16 @@ public class CourseService {
 
         List<FoundCourseByUserId> foundCoursesByUserId = new ArrayList<>();
 
-        List<PlacesFromCourse> placesFromCourse = new ArrayList<>();
-
         for (Course course : courseList) {
 
             List<Place> foundPlaces = placeRepository.findByCourseId(course.getId());
 
+            List<PlacesFromCourse> placesFromCourse = new ArrayList<>();
+
             for(Place place : foundPlaces){
                 placesFromCourse.add(PlaceMapper.convertPlaceToFromCourseResponse(place));
             }
-            foundCoursesByUserId.add(CourseMapper.of().convertToFoundCourses(course, placesFromCourse));
+                foundCoursesByUserId.add(CourseMapper.of().convertToFoundCourses(course, placesFromCourse));
         }
 
         return new MyPageCourseResponse(foundCoursesByUserId);
